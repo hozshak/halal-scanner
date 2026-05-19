@@ -105,11 +105,12 @@ class ResultActivity : AppCompatActivity() {
         // Markiere haram/mushbooh-Trigger im Text mit eckigen Klammern
         val triggers = (analysis.haramTriggers + analysis.mushboohTriggers).distinct()
             .sortedByDescending { it.length }
-        var marked = raw
+        var marked: String = raw
         for (t in triggers) {
-            // Case-insensitive replace
+            // Case-insensitive replace - via String-Extension um Kotlin-Overload-Resolution-
+            // Issue mit Regex.replace zu umgehen.
             val regex = Regex(Regex.escape(t), RegexOption.IGNORE_CASE)
-            marked = regex.replace(marked) { match: MatchResult -> "⚠️${match.value}⚠️" }
+            marked = marked.replace(regex) { match -> "⚠️${match.value}⚠️" }
         }
         binding.txtIngredients.text = marked
         binding.txtIngredients.visibility = View.VISIBLE

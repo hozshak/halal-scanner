@@ -91,13 +91,21 @@ object PhotoAnnotator {
         }
     }
 
+    /** Wort-Grenzen-Matching damit "Hamburg" nicht als "ham" erkannt wird. */
     private fun severityFor(text: String, haramKws: List<String>, mushKws: List<String>): HalalStatus {
         for (kw in haramKws) {
-            if (text.contains(kw)) return HalalStatus.HARAM
+            if (matchesWord(text, kw)) return HalalStatus.HARAM
         }
         for (kw in mushKws) {
-            if (text.contains(kw)) return HalalStatus.MUSHBOOH
+            if (matchesWord(text, kw)) return HalalStatus.MUSHBOOH
         }
         return HalalStatus.UNKNOWN
+    }
+
+    private fun matchesWord(haystack: String, keyword: String): Boolean {
+        val k = keyword.trim()
+        if (k.isEmpty()) return false
+        val pattern = "(?<![\\p{L}\\p{N}])" + Regex.escape(k) + "(?![\\p{L}\\p{N}])"
+        return Regex(pattern, RegexOption.IGNORE_CASE).containsMatchIn(haystack)
     }
 }

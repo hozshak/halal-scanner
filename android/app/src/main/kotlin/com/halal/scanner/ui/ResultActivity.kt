@@ -119,7 +119,9 @@ class ResultActivity : AppCompatActivity() {
             // Längste zuerst damit überlappende Treffer korrekt markiert werden
             val sorted = triggers.distinct().sortedByDescending { it.length }
             for (t in sorted) {
-                val regex = Regex(Regex.escape(t), RegexOption.IGNORE_CASE)
+                // Wort-Grenzen damit "ham" nicht in "Hamburg" markiert wird
+                val pattern = "(?<![\\p{L}\\p{N}])" + Regex.escape(t) + "(?![\\p{L}\\p{N}])"
+                val regex = Regex(pattern, RegexOption.IGNORE_CASE)
                 for (match in regex.findAll(sb.toString())) {
                     sb.setSpan(BackgroundColorSpan(bgColor),
                         match.range.first, match.range.last + 1,

@@ -4,42 +4,57 @@ import androidx.annotation.StringRes
 import com.halal.scanner.R
 
 /**
- * Halal-Zutaten-Datenbank.
- * Begründungen sind als String-Resources hinterlegt (DE/EN/AR).
+ * Halal-Zutaten-Datenbank mit echtem Wort-Grenzen-Matching via Regex.
+ *
+ * Vorher: Substring-Check matchte "ham" in "Hamburg" und "beer" in "Johannisbeeren" -
+ * falsch positiv. Jetzt: Lookaround-Regex `(?<![\p{L}\p{N}])kw(?![\p{L}\p{N}])`
+ * matcht nur wenn das Keyword als eigenständiges Wort steht (geht auch mit Arabisch
+ * dank \p{L} Unicode-Letter-Klasse).
+ *
+ * Für deutsche Komposita: zusätzliche Compound-Varianten manuell eingetragen
+ * (z.B. "schwein" allein matcht NICHT "Schweinefleisch" - daher auch "schweinefleisch"
+ * explizit als Keyword).
  */
 object IngredientDatabase {
 
     val HARAM = listOf(
+        // Schwein: Basis + häufige deutsche/englische Komposita
         IngredientRule(
-            listOf("schwein", "schweine", "pork", "porc", "pig", "porcine",
-                   "speck", "bacon", "ham ", " ham", "schinken", "jambon",
+            listOf("schwein", "schweine", "schweins",
+                   "schweinefleisch", "schweinefett", "schweineschmalz",
+                   "schweinegelatine", "schweinerippe", "schweinemett",
+                   "schweinerücken", "schweinekotelett",
+                   "pork", "porc", "porcine",
+                   "speck", "bacon", "ham", "schinken", "jambon",
                    "schmalz", "lard", "saindoux",
-                   "schweinefett", "schweinegelatine", "pork fat", "pork gelatin", "pork gelatine",
-                   "schweineleberwurst", "leberwurst", "blutwurst",
+                   "pork fat", "pork gelatin", "pork gelatine",
+                   "blutwurst", "schweineleberwurst", "leberwurst",
                    "خنزير", "لحم خنزير"),
             HalalStatus.HARAM,
             R.string.reason_pork
         ),
+        // Alkohol: Wort-Grenze sorgt automatisch dafür dass "alkoholfrei" NICHT matched
+        // (weil nach "alkohol" Buchstaben kommen)
         IngredientRule(
-            listOf("alkohol", "alcohol", "alcoólico", "alcool",
-                   "ethanol", "äthanol", "éthanol",
-                   "rum ", " rum",
-                   "wein ", " wein", "weinessig", "weinbrand", "wine ", " wine",
-                   "bier", "beer", "bière",
+            listOf("alkohol", "alcohol", "alcoólico",
+                   "ethanol", "äthanol",
+                   "rum", "wein", "weinessig", "weinbrand", "weingeist",
+                   "glühwein", "rotwein", "weißwein", "schaumwein",
+                   "wine", "bier", "beer", "bière",
                    "whisky", "whiskey", "vodka", "wodka",
                    "spirituose", "spirits", "liquor",
-                   "weingeist", "branntwein", "kirschwasser",
+                   "branntwein", "kirschwasser",
                    "كحول", "خمر"),
             HalalStatus.HARAM,
             R.string.reason_alcohol
         ),
         IngredientRule(
-            listOf("karmin", "carmine", "cochenille", "cochineal", "e120", "e 120", "karminsäure"),
+            listOf("karmin", "carmine", "cochenille", "cochineal", "e120", "karminsäure"),
             HalalStatus.HARAM,
             R.string.reason_carmine
         ),
         IngredientRule(
-            listOf("schellack", "shellac", "gomme-laque", "e904", "e 904"),
+            listOf("schellack", "shellac", "gomme-laque", "e904"),
             HalalStatus.HARAM,
             R.string.reason_shellac
         ),
@@ -54,7 +69,7 @@ object IngredientDatabase {
             R.string.reason_blood
         ),
         IngredientRule(
-            listOf("l-cystein", "l-cysteine", "e920", "e 920", "cysteinhydrochlorid"),
+            listOf("l-cystein", "l-cysteine", "e920", "cysteinhydrochlorid"),
             HalalStatus.HARAM,
             R.string.reason_lcysteine
         ),
@@ -69,7 +84,7 @@ object IngredientDatabase {
             R.string.reason_aspic
         ),
         IngredientRule(
-            listOf("e542", "e 542", "knochenphosphat", "bone phosphate"),
+            listOf("e542", "knochenphosphat", "bone phosphate"),
             HalalStatus.HARAM,
             R.string.reason_bone_phosphate
         ),
@@ -77,62 +92,59 @@ object IngredientDatabase {
 
     val MUSHBOOH = listOf(
         IngredientRule(
-            listOf("gelatine", "gelatin", "gélatine", "جيلاتين", "e441", "e 441"),
+            listOf("gelatine", "gelatin", "gélatine", "جيلاتين", "e441"),
             HalalStatus.MUSHBOOH,
             R.string.reason_gelatin
         ),
         IngredientRule(
             listOf("mono- und diglyceride", "mono and diglycerides", "mono-diglyceride",
-                   "mono-/diglyceride", "monoglyceride", "diglyceride",
-                   "e471", "e 471", "e472", "e 472", "e473", "e 473",
-                   "e474", "e 474", "e475", "e 475", "e476", "e 476",
-                   "e477", "e 477", "e478", "e 478", "e479", "e 479"),
+                   "mono-/diglyceride", "monoglyceride", "diglyceride", "diglyceriden",
+                   "e471", "e472", "e473", "e474", "e475", "e476", "e477", "e478", "e479"),
             HalalStatus.MUSHBOOH,
             R.string.reason_diglycerides
         ),
         IngredientRule(
-            listOf("e481", "e 481", "e482", "e 482", "stearoyllaktylat"),
+            listOf("e481", "e482", "stearoyllaktylat", "stearoyllaktylate"),
             HalalStatus.MUSHBOOH,
             R.string.reason_stearoyl_lactylate
         ),
         IngredientRule(
-            listOf("e491", "e 491", "e492", "e 492", "e493", "e 493", "e494", "e 494",
-                   "e495", "e 495", "sorbitan"),
+            listOf("e491", "e492", "e493", "e494", "e495", "sorbitan"),
             HalalStatus.MUSHBOOH,
             R.string.reason_sorbitan
         ),
         IngredientRule(
-            listOf("e470", "e 470", "speisefettsäuresalze", "fatty acid salts"),
+            listOf("e470", "speisefettsäuresalze", "fatty acid salts"),
             HalalStatus.MUSHBOOH,
             R.string.reason_fatty_acid_salts
         ),
         IngredientRule(
-            listOf("e631", "e 631", "natriuminosinat", "sodium inosinate", "disodium inosinate"),
+            listOf("e631", "natriuminosinat", "sodium inosinate", "disodium inosinate"),
             HalalStatus.MUSHBOOH,
             R.string.reason_sodium_inosinate
         ),
         IngredientRule(
-            listOf("e635", "e 635", "natriumribonukleotid"),
+            listOf("e635", "natriumribonukleotid"),
             HalalStatus.MUSHBOOH,
             R.string.reason_sodium_ribonucleotide
         ),
         IngredientRule(
-            listOf("e627", "e 627", "natriumguanylat"),
+            listOf("e627", "natriumguanylat"),
             HalalStatus.MUSHBOOH,
             R.string.reason_sodium_guanylate
         ),
         IngredientRule(
-            listOf("e422", "e 422", "glycerin", "glycerol", "glycérol", "glycerine", "glyzerin"),
+            listOf("e422", "glycerin", "glycerol", "glycérol", "glycerine", "glyzerin"),
             HalalStatus.MUSHBOOH,
             R.string.reason_glycerin
         ),
         IngredientRule(
-            listOf("e1518", "e 1518", "triacetin"),
+            listOf("e1518", "triacetin"),
             HalalStatus.MUSHBOOH,
             R.string.reason_triacetin
         ),
         IngredientRule(
-            listOf("e445", "e 445"),
+            listOf("e445"),
             HalalStatus.MUSHBOOH,
             R.string.reason_glycerol_ester
         ),
@@ -153,7 +165,7 @@ object IngredientDatabase {
             R.string.reason_vanilla_extract
         ),
         IngredientRule(
-            listOf("lab ", " lab", "rennet", "labferment", "labenzym"),
+            listOf("lab", "rennet", "labferment", "labenzym"),
             HalalStatus.MUSHBOOH,
             R.string.reason_rennet
         ),
@@ -163,12 +175,12 @@ object IngredientDatabase {
             R.string.reason_whey
         ),
         IngredientRule(
-            listOf("emulgator", "emulsifier", "émulsifiant"),
+            listOf("emulgator", "emulgatoren", "emulsifier", "émulsifiant"),
             HalalStatus.MUSHBOOH,
             R.string.reason_emulsifier
         ),
         IngredientRule(
-            listOf("e322", "e 322", "lecithin", "lécithine"),
+            listOf("e322", "lecithin", "lécithine", "sojalecithin"),
             HalalStatus.MUSHBOOH,
             R.string.reason_lecithin
         ),
@@ -193,22 +205,17 @@ object IngredientDatabase {
             R.string.reason_lamb_fat
         ),
         IngredientRule(
-            listOf("e1100", "e 1100", "amylase"),
+            listOf("e1100", "amylase"),
             HalalStatus.MUSHBOOH,
             R.string.reason_amylase
         ),
         IngredientRule(
-            listOf("e1105", "e 1105", "lysozym"),
+            listOf("e1105", "lysozym"),
             HalalStatus.MUSHBOOH,
             R.string.reason_lysozyme
         ),
         IngredientRule(
-            listOf("vanillin natur", "vanillin natural"),
-            HalalStatus.MUSHBOOH,
-            R.string.reason_vanillin
-        ),
-        IngredientRule(
-            listOf("propylenglycol", "propylene glycol", "e1520", "e 1520"),
+            listOf("propylenglycol", "propylene glycol", "e1520"),
             HalalStatus.MUSHBOOH,
             R.string.reason_propylene_glycol
         ),
@@ -222,10 +229,22 @@ object IngredientDatabase {
     val HALAL_INDICATORS = listOf(
         "halal", "حلال",
         "halal certified", "halal-zertifiziert", "halal certifié",
-        "vegan", "végan", "vegano", "végétalien",
-        "100% pflanzlich", "rein pflanzlich", "plant-based", "plant based", "100% plant",
-        "kosher", "koscher", "كوشر",
+        "vegan", "végan", "vegano",
+        "100% pflanzlich", "rein pflanzlich", "plant-based", "plant based",
+        "kosher", "koscher",
     )
+
+    /**
+     * Echtes Wort-Matching mit Unicode-Letter/Number-Klassen.
+     * `(?<![\p{L}\p{N}])kw(?![\p{L}\p{N}])` matcht nur wenn keyword als komplettes
+     * Wort steht. Vermeidet "ham" in "Hamburg" oder "beer" in "Johannisbeeren".
+     */
+    private fun matchesWord(haystack: String, keyword: String): Boolean {
+        val k = keyword.lowercase().trim()
+        if (k.isEmpty()) return false
+        val pattern = "(?<![\\p{L}\\p{N}])" + Regex.escape(k) + "(?![\\p{L}\\p{N}])"
+        return Regex(pattern, RegexOption.IGNORE_CASE).containsMatchIn(haystack)
+    }
 
     fun analyze(text: String, labels: List<String> = emptyList()): HalalAnalysis {
         if (text.isBlank() && labels.isEmpty()) {
@@ -239,15 +258,15 @@ object IngredientDatabase {
 
         val haramHits = HARAM.flatMap { rule ->
             rule.keywords.mapNotNull { kw ->
-                if (haystack.contains(kw.lowercase())) ReasonHit(kw, rule.reasonResId) else null
+                if (matchesWord(haystack, kw)) ReasonHit(kw, rule.reasonResId) else null
             }
         }
         val mushboohHits = MUSHBOOH.flatMap { rule ->
             rule.keywords.mapNotNull { kw ->
-                if (haystack.contains(kw.lowercase())) ReasonHit(kw, rule.reasonResId) else null
+                if (matchesWord(haystack, kw)) ReasonHit(kw, rule.reasonResId) else null
             }
         }
-        val halalHits = HALAL_INDICATORS.filter { haystack.contains(it.lowercase()) }
+        val halalHits = HALAL_INDICATORS.filter { matchesWord(haystack, it) }
 
         val status = when {
             haramHits.isNotEmpty() -> HalalStatus.HARAM

@@ -48,6 +48,31 @@
                 android:gravity="center"
                 android:textSize="14sp"
                 android:padding="16dp" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnTryOcr"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginHorizontal="16dp"
+                android:text="@string/result_try_ocr"
+                android:textStyle="bold"
+                android:visibility="gone"
+                app:icon="@drawable/ic_text"
+                app:iconGravity="textStart"
+                app:cornerRadius="16dp" />
+
+            <TextView
+                android:id="@+id/txtTryOcrHint"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:layout_marginHorizontal="20dp"
+                android:gravity="center"
+                android:textSize="12sp"
+                android:alpha="0.6"
+                android:text="@string/result_try_ocr_hint"
+                android:visibility="gone" />
         </LinearLayout>
 
         <androidx.constraintlayout.widget.Group

@@ -51,6 +51,19 @@
     <string name="history_clear">Löschen</string>
     <string name="history_clear_confirm">Verlauf vollständig löschen?</string>
 
+    <string name="nav_scan">Scannen</string>
+    <string name="nav_history">Verlauf</string>
+    <string name="nav_more">Mehr</string>
+
+    <string name="ocr_capturing">Bild wird analysiert…</string>
+    <string name="ocr_no_text">Kein Text erkannt. Bild war nicht scharf genug oder Text zu klein.</string>
+    <string name="ocr_capture_button">Foto + Zutaten analysieren</string>
+    <string name="ocr_hint_align">Halte das Handy ruhig, sorge für gute Beleuchtung,\nund stelle sicher dass die Schrift scharf zu lesen ist.</string>
+
+    <string name="result_try_ocr">Zutaten direkt scannen (OCR)</string>
+    <string name="result_not_found_short">Produkt nicht gefunden</string>
+    <string name="result_try_ocr_hint">Das funktioniert bei jedem Produkt — Kamera einfach auf die Zutatenliste halten.</string>
+
     <string name="lang_choose">Sprache wählen</string>
     <string name="lang_de">Deutsch</string>
     <string name="lang_en">English</string>

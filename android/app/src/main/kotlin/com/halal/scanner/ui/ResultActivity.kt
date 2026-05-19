@@ -153,6 +153,12 @@ class ResultActivity : AppCompatActivity() {
         binding.contentGroup.visibility = View.GONE
         binding.errorBox.visibility = View.VISIBLE
         binding.txtError.text = getString(R.string.result_not_found, barcode)
+        binding.btnTryOcr.visibility = View.VISIBLE
+        binding.txtTryOcrHint.visibility = View.VISIBLE
+        binding.btnTryOcr.setOnClickListener {
+            startActivity(Intent(this, TextScannerActivity::class.java))
+            finish()
+        }
     }
 
     private fun showError(msg: String) {

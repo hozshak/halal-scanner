@@ -109,7 +109,7 @@ class ResultActivity : AppCompatActivity() {
         for (t in triggers) {
             // Case-insensitive replace
             val regex = Regex(Regex.escape(t), RegexOption.IGNORE_CASE)
-            marked = regex.replace(marked) { "⚠️${it.value}⚠️" }
+            marked = regex.replace(marked) { match: MatchResult -> "⚠️${match.value}⚠️" }
         }
         binding.txtIngredients.text = marked
         binding.txtIngredients.visibility = View.VISIBLE

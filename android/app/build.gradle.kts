@@ -81,6 +81,9 @@ dependencies {
     // ML Kit Barcode Scanning (Standalone)
     implementation("com.google.mlkit:barcode-scanning:17.3.0")
 
+    // ML Kit Text Recognition (Latin: DE/EN/FR/ES/IT/PL/TR - perfekt fuer EU-Etiketten)
+    implementation("com.google.mlkit:text-recognition:16.0.1")
+
     // Networking
     implementation("com.squareup.okhttp3:okhttp:4.12.0")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.9.0")

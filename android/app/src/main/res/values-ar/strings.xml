@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">حلال سكانر</string>
+
+    <string name="main_subtitle">تحقق من حلال الأطعمة</string>
+
+    <string name="main_scan_barcode_title">مسح الباركود</string>
+    <string name="main_scan_barcode_desc">التقط الباركود على العبوة</string>
+    <string name="main_scan_text_title">مسح المكونات (OCR)</string>
+    <string name="main_scan_text_desc">وجّه الكاميرا نحو قائمة المكونات — يعمل مع أي منتج</string>
+
+    <string name="main_manual_barcode">إدخال الباركود يدوياً</string>
+    <string name="main_manual_barcode_hint">مثلاً 4001234567890</string>
+    <string name="main_manual_lookup">تحقق</string>
+
+    <string name="main_history_button">السجل</string>
+    <string name="main_info_button">عن التطبيق</string>
+    <string name="main_disclaimer">معلوماتي فقط — ليس شهادة حلال رسمية. عند الشك تواصل مع الشركة المصنعة.</string>
+
+    <string name="permission_denied_title">يتطلب الكاميرا</string>
+    <string name="permission_denied_msg">يحتاج التطبيق إلى صلاحية الكاميرا للمسح.</string>
+
+    <string name="info_title">عن حلال سكانر</string>
+    <string name="info_msg">يفحص التطبيق المنتجات بطريقتين:\n\n• مسح الباركود يجلب معلومات المنتج من OpenFoodFacts\n• مسح OCR يقرأ قائمة المكونات مباشرة من العبوة — يعمل لأي منتج\n\nتُقارن المكونات مع قاعدة بيانات للمحرمات (لحم خنزير، كحول، كارمين/E120، شيلاك/E904، …) وللمشكوك فيها (جيلاتين، أحاديات/ثنائيات الجلسريد E471-E479، فوسفات العظام E542، …).\n\nملاحظة: هذا ليس فتوى. النتيجة مبنية على الإجماع الفقهي الشائع. عند الشك اختر منتجاً معتمداً للحلال.</string>
+
+    <string name="scanner_hint">ضع الباركود داخل الإطار</string>
+    <string name="scanner_cancel">إلغاء</string>
+
+    <string name="text_scanner_hint">ضع قائمة المكونات داخل الإطار — يجب أن يكون النص واضحاً</string>
+    <string name="text_scanner_capture">تحليل</string>
+
+    <string name="result_barcode_label">الباركود: %1$s</string>
+    <string name="result_ocr_source">المصدر: مسح المكونات بـ OCR</string>
+    <string name="result_ocr_product_label">المكونات الممسوحة</string>
+    <string name="result_no_name">منتج غير معروف</string>
+    <string name="result_reasons_header">الأسباب</string>
+    <string name="result_ingredients_header">المكونات (المواد المشبوهة عليها ⚠️)</string>
+    <string name="result_scan_again">مسح منتج آخر</string>
+    <string name="result_back">رجوع</string>
+    <string name="result_not_found">المنتج بالباركود %1$s غير موجود في قاعدة البيانات.\n\nنصيحة: استخدم \"مسح المكونات\" (OCR) ووجّه الكاميرا نحو قائمة المكونات على العبوة.</string>
+    <string name="result_error">خطأ في التحميل: %1$s</string>
+
+    <string name="status_halal">حلال</string>
+    <string name="status_likely_halal">على الأرجح حلال</string>
+    <string name="status_mushbooh">مشبوه</string>
+    <string name="status_haram">حرام</string>
+    <string name="status_unknown">غير معروف</string>
+
+    <string name="history_title">سجل المسح</string>
+    <string name="history_empty">لم يتم مسح أي منتج بعد.</string>
+    <string name="history_clear">مسح</string>
+    <string name="history_clear_confirm">حذف السجل بالكامل؟</string>
+
+    <string name="lang_choose">اختر اللغة</string>
+    <string name="lang_de">Deutsch</string>
+    <string name="lang_en">English</string>
+    <string name="lang_ar">العربية</string>
+</resources>

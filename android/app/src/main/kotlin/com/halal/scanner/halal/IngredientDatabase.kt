@@ -1,136 +1,135 @@
 package com.halal.scanner.halal
 
 /**
- * Datenbank für Halal-Status von Zutaten.
+ * Halal-Zutaten-Datenbank.
  *
- * Quellenbasis: weit verbreiteter Konsens islamischer Speisegesetze
- *   - Schweinefleisch + Derivate: haram (Quran)
- *   - Alkohol (Khamr): haram (Quran)
- *   - Tier aus nicht-halal Schlachtung: haram
- *   - Insekten-Farbstoffe (Carmin, Schellack): haram nach den meisten Schulen
+ * Erkennungs-Stichwörter in: Deutsch, Englisch, Französisch und teilweise Arabisch
+ * (lateinisch transliteriert). Plus E-Nummern.
  *
- * Mushbooh = zweifelhaft - Quelle der Zutat oft nicht eindeutig (z.B. Gelatine
- * kann aus Schwein, Rind oder Fisch sein; Mono-/Diglyceride aus tier. oder pflanz.
- * Quellen). User soll selbst prüfen.
+ * QUELLEN:
+ *   - Allgemeiner islamischer Konsens (Quran 2:173, 5:3, 16:115 zu verbotenem Fleisch + Alkohol)
+ *   - Listen u.a. von HMC (Halal Monitoring Committee), JAKIM, MUI, Halal Cert Germany
+ *   - E-Nummer-Klassifikation orientiert sich an mehreren etablierten Halal-Authoritäten
  *
- * Diese Liste ist informativ, keine fatwa. Im Zweifel Hersteller kontaktieren
- * oder zertifiziertes Halal-Produkt kaufen.
+ * WICHTIG: Diese App liefert eine **informative** Bewertung, keine fatwa.
+ * Im Zweifel Hersteller kontaktieren oder zertifiziertes Produkt wählen.
  */
 object IngredientDatabase {
 
-    /** Definitiv verboten (Haram). */
     val HARAM = listOf(
-        // Schwein und Derivate
+        // ============ Schwein und Derivate ============
         IngredientRule(
-            listOf("schwein", "schweine", "pork", "porc", "pig",
-                   "speck", "bacon", "ham", "schinken",
-                   "schmalz", "lard", "saindoux",
-                   "schweinefett", "schweinegelatine", "porcine"),
+            listOf(
+                "schwein", "schweine", "pork", "porc", "pig", "porcine",
+                "speck", "bacon", "ham ", " ham", "schinken", "jambon",
+                "schmalz", "lard", "saindoux",
+                "schweinefett", "schweinegelatine", "pork fat", "pork gelatin", "pork gelatine",
+                "schweineleberwurst", "leberwurst", "blutwurst", "salami schwein",
+                "خنزير", "لحم خنزير",
+            ),
             HalalStatus.HARAM,
-            "Schweinefleisch oder daraus gewonnenes Produkt"
+            "Schweinefleisch / Pork - haram nach Quran 2:173"
         ),
-        // Alkohol
+        // ============ Alkohol ============
         IngredientRule(
-            listOf("alkohol", "alcohol", "ethanol", "äthanol",
-                   "rum", "wein ", "wine ", "weinessig", "weinbrand",
-                   "bier", "beer",
-                   "whisky", "vodka", "wodka", "gin",
-                   "spirituose", "spirits", "liquor",
-                   "weingeist"),
+            listOf(
+                "alkohol", "alcohol", "alcoólico", "alcool",
+                "ethanol", "äthanol", "éthanol",
+                "rum ", " rum",
+                "wein ", " wein", "weinessig", "weinbrand", "wine ", " wine",
+                "bier", "beer", "bière",
+                "whisky", "whiskey", "vodka", "wodka", "gin ", " gin",
+                "spirituose", "spirits", "liquor",
+                "weingeist", "branntwein", "kirschwasser",
+                "sake ", " sake",
+                "كحول", "خمر",
+            ),
             HalalStatus.HARAM,
-            "Alkoholisches Getränk oder Ethanol-Zutat"
+            "Alkohol/Ethanol - haram (Khamr) nach Quran 5:90"
         ),
-        // Karmin / Cochenille
+        // ============ Insekten-Farbstoffe ============
         IngredientRule(
-            listOf("karmin", "carmine", "cochenille", "cochineal",
-                   "e120", "e 120", "karminsäure"),
+            listOf("karmin", "carmine", "cochenille", "cochineal", "e120", "e 120", "karminsäure"),
             HalalStatus.HARAM,
-            "Karmin (E120) - Farbstoff aus Cochenille-Schildläusen, von den meisten Gelehrten als haram eingestuft"
+            "Karmin (E120) - Farbstoff aus Cochenille-Schildläusen"
         ),
-        // Schellack
         IngredientRule(
-            listOf("schellack", "shellac", "e904", "e 904"),
+            listOf("schellack", "shellac", "gomme-laque", "e904", "e 904"),
             HalalStatus.HARAM,
             "Schellack (E904) - Insekten-Sekret"
         ),
-        // Tierisches Lab (animal rennet)
+        // ============ Animal-derived ohne Halal-Schlachtung ============
         IngredientRule(
-            listOf("tierisches lab", "animal rennet", "kälberlab", "calf rennet"),
+            listOf("tierisches lab", "animal rennet", "kälberlab", "calf rennet", "präsentlab"),
             HalalStatus.HARAM,
             "Tierisches Lab aus nicht-halal Schlachtung"
         ),
-        // Blut
         IngredientRule(
-            listOf("blutwurst", "blood sausage", "blutplasma", "blood plasma"),
+            listOf("blutwurst", "blood sausage", "blutplasma", "blood plasma", "blut ", " blut"),
             HalalStatus.HARAM,
-            "Blut-Produkt"
+            "Blut-Produkt - haram nach Quran 2:173"
         ),
-        // L-Cystein aus Haar/Schweineborsten
         IngredientRule(
-            listOf("l-cystein", "l-cysteine", "e920", "e 920"),
+            listOf("l-cystein", "l-cysteine", "e920", "e 920", "cysteinhydrochlorid"),
             HalalStatus.HARAM,
-            "L-Cystein (E920) - oft aus Schweineborsten oder Menschenhaaren"
+            "L-Cystein (E920) - oft aus Schweineborsten oder menschlichem Haar"
         ),
-        // Pepsin (oft Schwein)
         IngredientRule(
             listOf("pepsin"),
             HalalStatus.HARAM,
-            "Pepsin - meist aus Schweinemagen"
+            "Pepsin - überwiegend aus Schweinemägen gewonnen"
+        ),
+        IngredientRule(
+            listOf("aspik", "aspic"),
+            HalalStatus.HARAM,
+            "Aspik - oft auf Schweinefleisch-Basis"
+        ),
+        // Karneval-Produkt-Klassiker
+        IngredientRule(
+            listOf("gummibärchen schwein", "weingummi"),
+            HalalStatus.HARAM,
+            "Enthält Schweinegelatine oder Alkohol"
+        ),
+        // ============ Tot/Aas ============
+        IngredientRule(
+            listOf("verendetes tier", "kadaver", "carrion"),
+            HalalStatus.HARAM,
+            "Aas/Kadaver - haram"
+        ),
+        // ============ Eindeutige tierische E-Numbers ============
+        IngredientRule(
+            listOf("e542", "e 542", "knochenphosphat", "bone phosphate"),
+            HalalStatus.HARAM,
+            "E542 (Knochenphosphat) - aus tierischen Knochen, meist Schwein"
         ),
     )
 
-    /** Zweifelhaft (Mushbooh) - Quelle prüfen. */
     val MUSHBOOH = listOf(
+        // ============ Gelatine (Quelle unklar) ============
         IngredientRule(
-            listOf("gelatine", "gelatin", "gélatine"),
+            listOf("gelatine", "gelatin", "gélatine", "جيلاتين"),
             HalalStatus.MUSHBOOH,
-            "Gelatine - Quelle (Schwein/Rind/Fisch) muss geprüft werden"
+            "Gelatine - tierische Quelle (Schwein/Rind/Fisch) muss geprüft werden"
         ),
         IngredientRule(
             listOf("e441", "e 441"),
             HalalStatus.MUSHBOOH,
-            "E441 - Gelatine, Quelle muss geprüft werden"
+            "E441 - Gelatine, Quelle prüfen"
         ),
+        // ============ Mono-/Diglyceride und Verwandte ============
         IngredientRule(
             listOf("mono- und diglyceride", "mono and diglycerides", "mono-diglyceride",
-                   "e471", "e 471", "e472", "e 472", "e473", "e 473"),
+                   "mono-/diglyceride", "monoglyceride", "diglyceride",
+                   "e471", "e 471", "e472", "e 472", "e473", "e 473",
+                   "e474", "e 474", "e475", "e 475", "e476", "e 476",
+                   "e477", "e 477", "e478", "e 478", "e479", "e 479"),
             HalalStatus.MUSHBOOH,
-            "Mono-/Diglyceride (E471-E473) - können tierischen oder pflanzlichen Ursprungs sein"
+            "Mono-/Diglyceride und Verwandte (E471-E479) - können tierischer oder pflanzlicher Herkunft sein"
         ),
         IngredientRule(
-            listOf("e542", "e 542", "knochenphosphat", "bone phosphate"),
+            listOf("e481", "e 481", "e482", "e 482", "stearoyllaktylat"),
             HalalStatus.MUSHBOOH,
-            "E542 (Knochenphosphat) - oft aus Schweineknochen"
-        ),
-        IngredientRule(
-            listOf("e631", "e 631", "natriuminosinat", "sodium inosinate"),
-            HalalStatus.MUSHBOOH,
-            "E631 - kann aus Fleisch oder Fisch gewonnen werden"
-        ),
-        IngredientRule(
-            listOf("e635", "e 635"),
-            HalalStatus.MUSHBOOH,
-            "E635 - oft tierischen Ursprungs"
-        ),
-        IngredientRule(
-            listOf("e1518", "e 1518", "triacetin"),
-            HalalStatus.MUSHBOOH,
-            "E1518 (Triacetin) - kann aus tierischem Glycerin sein"
-        ),
-        IngredientRule(
-            listOf("e422", "e 422", "glycerin", "glycerol", "glycérol"),
-            HalalStatus.MUSHBOOH,
-            "Glycerin (E422) - kann aus tierischem Fett sein"
-        ),
-        IngredientRule(
-            listOf("e470", "e 470", "speisefettsäuren", "fatty acid salts"),
-            HalalStatus.MUSHBOOH,
-            "E470 (Speisefettsäure-Salze) - Quelle prüfen"
-        ),
-        IngredientRule(
-            listOf("e481", "e 481", "e482", "e 482"),
-            HalalStatus.MUSHBOOH,
-            "E481/E482 (Stearoyllaktylate) - kann aus tierischen Fettsäuren sein"
+            "E481/E482 (Stearoyllaktylate) - Fettsäure-Quelle muss geprüft werden"
         ),
         IngredientRule(
             listOf("e491", "e 491", "e492", "e 492", "e493", "e 493", "e494", "e 494",
@@ -139,60 +138,162 @@ object IngredientDatabase {
             "Sorbitan-Ester (E491-E495) - Fettsäure-Quelle prüfen"
         ),
         IngredientRule(
-            listOf("natürliche aromen", "natural flavor", "natural flavour",
-                   "natürliches aroma", "natural aroma"),
+            listOf("e470", "e 470", "speisefettsäuresalze", "fatty acid salts"),
             HalalStatus.MUSHBOOH,
-            "Natürliches Aroma - Quelle nicht spezifiziert, kann Alkohol oder tierische Bestandteile enthalten"
+            "E470 (Speisefettsäure-Salze) - Quelle prüfen"
+        ),
+        // ============ Geschmacks-Enhancer ============
+        IngredientRule(
+            listOf("e631", "e 631", "natriuminosinat", "sodium inosinate", "disodium inosinate"),
+            HalalStatus.MUSHBOOH,
+            "E631 - kann aus Fleisch oder Fisch gewonnen werden"
         ),
         IngredientRule(
-            listOf("lab", "rennet", "labferment"),
+            listOf("e635", "e 635", "natriumribonukleotid"),
+            HalalStatus.MUSHBOOH,
+            "E635 (Natriumribonukleotid) - oft tierischen Ursprungs"
+        ),
+        IngredientRule(
+            listOf("e627", "e 627", "natriumguanylat"),
+            HalalStatus.MUSHBOOH,
+            "E627 (Natriumguanylat) - kann tierisch sein"
+        ),
+        // ============ Glycerin ============
+        IngredientRule(
+            listOf("e422", "e 422", "glycerin", "glycerol", "glycérol", "glycerine", "glyzerin"),
+            HalalStatus.MUSHBOOH,
+            "Glycerin (E422) - kann aus tierischem Fett, pflanzlich oder synthetisch sein"
+        ),
+        IngredientRule(
+            listOf("e1518", "e 1518", "triacetin"),
+            HalalStatus.MUSHBOOH,
+            "E1518 (Triacetin) - kann tierisches Glycerin enthalten"
+        ),
+        IngredientRule(
+            listOf("e445", "e 445"),
+            HalalStatus.MUSHBOOH,
+            "E445 (Glycerolester von Wurzelharz) - Quelle prüfen"
+        ),
+        // ============ Aromen ============
+        IngredientRule(
+            listOf("natürliche aromen", "natural flavor", "natural flavour",
+                   "natürliches aroma", "natural aroma", "arôme naturel"),
+            HalalStatus.MUSHBOOH,
+            "Natürliches Aroma - Quelle nicht spezifiziert, kann Alkohol oder tierische Bestandteile als Träger enthalten"
+        ),
+        IngredientRule(
+            listOf("aromaextrakt", "flavor extract", "flavour extract", "extrakt"),
+            HalalStatus.MUSHBOOH,
+            "Aromen-Extrakt - Träger kann Alkohol enthalten"
+        ),
+        IngredientRule(
+            listOf("vanilleextrakt", "vanilla extract", "vanille-extrakt"),
+            HalalStatus.MUSHBOOH,
+            "Vanille-Extrakt - meist auf Ethanol-Basis hergestellt"
+        ),
+        // ============ Lab/Rennet ============
+        IngredientRule(
+            listOf("lab ", " lab", "rennet", "labferment", "labenzym"),
             HalalStatus.MUSHBOOH,
             "Lab/Rennet - tierisch oder mikrobiell, Quelle prüfen"
         ),
         IngredientRule(
-            listOf("molke", "whey"),
+            listOf("molke", "whey", "lactosérum"),
             HalalStatus.MUSHBOOH,
-            "Molke - bei Käse-Verarbeitung mit tierischem Lab problematisch"
+            "Molke - kritisch wenn der Käse mit tierischem Lab hergestellt wurde"
         ),
+        // ============ Emulgatoren allgemein ============
         IngredientRule(
             listOf("emulgator", "emulsifier", "émulsifiant"),
             HalalStatus.MUSHBOOH,
             "Emulgator - Quelle muss geprüft werden"
         ),
         IngredientRule(
-            listOf("rindergelatine", "beef gelatin", "bovine gelatin"),
+            listOf("e322", "e 322", "lecithin", "lécithine"),
+            HalalStatus.MUSHBOOH,
+            "Lecithin (E322) - meist Soja (halal) aber auch Ei-Lecithin möglich"
+        ),
+        // ============ Tierfett, nicht-halal-Schlachtung ============
+        IngredientRule(
+            listOf("rindergelatine", "beef gelatin", "bovine gelatin", "rindsgelatine"),
             HalalStatus.MUSHBOOH,
             "Rindergelatine - nur halal wenn aus halal-geschlachtetem Rind"
         ),
         IngredientRule(
-            listOf("rinderfett", "beef tallow", "tallow", "rindertalg"),
+            listOf("rinderfett", "beef tallow", "tallow", "rindertalg", "talg"),
             HalalStatus.MUSHBOOH,
-            "Rinderfett - nur halal wenn aus halal-Schlachtung"
+            "Rinderfett/Talg - nur halal wenn aus halal-Schlachtung"
         ),
         IngredientRule(
-            listOf("hühnerfett", "chicken fat", "geflügelfett"),
+            listOf("hühnerfett", "chicken fat", "geflügelfett", "poultry fat"),
             HalalStatus.MUSHBOOH,
             "Geflügelfett - nur halal wenn aus halal-Schlachtung"
         ),
         IngredientRule(
-            listOf("aromaextrakt", "flavor extract", "flavour extract"),
+            listOf("lamm", "lamm-", "schaffett", "lamb fat"),
             HalalStatus.MUSHBOOH,
-            "Aroma-Extrakt - Trägerstoff kann Alkohol sein"
+            "Lamm-/Schaffett - nur halal wenn aus halal-Schlachtung"
+        ),
+        // ============ Andere fragwürdige ============
+        IngredientRule(
+            listOf("e904", "e 904"),
+            HalalStatus.MUSHBOOH,
+            "E904 - meist Schellack, siehe HARAM"
         ),
         IngredientRule(
-            listOf("vanilleextrakt", "vanilla extract"),
+            listOf("e120", "e 120"),
             HalalStatus.MUSHBOOH,
-            "Vanille-Extrakt - meist auf Alkohol-Basis hergestellt"
+            "E120 - meist Karmin, siehe HARAM"
+        ),
+        IngredientRule(
+            listOf("e1100", "e 1100", "amylase"),
+            HalalStatus.MUSHBOOH,
+            "E1100 (Amylasen) - kann tierischen oder mikrobiellen Ursprungs sein"
+        ),
+        IngredientRule(
+            listOf("e1105", "e 1105", "lysozym"),
+            HalalStatus.MUSHBOOH,
+            "E1105 (Lysozym) - aus Ei oder tierisch"
+        ),
+        IngredientRule(
+            listOf("e441", "e 441"),
+            HalalStatus.MUSHBOOH,
+            "E441 - Gelatine, Quelle prüfen"
+        ),
+        IngredientRule(
+            listOf("vanillin natur", "vanillin natural"),
+            HalalStatus.MUSHBOOH,
+            "Natürliches Vanillin - oft auf Alkohol-Basis hergestellt"
+        ),
+        IngredientRule(
+            listOf("propylenglycol", "propylene glycol", "e1520", "e 1520"),
+            HalalStatus.MUSHBOOH,
+            "E1520 (Propylenglykol) - oft als Träger für Alkohol-haltige Aromen"
+        ),
+        // Mögliche Schweine-Träger
+        IngredientRule(
+            listOf("magnesiumstearat", "magnesium stearate"),
+            HalalStatus.MUSHBOOH,
+            "Magnesiumstearat - Fettsäure-Quelle prüfen (tierisch oder pflanzlich)"
+        ),
+        IngredientRule(
+            listOf("speisefettsäuren", "fatty acids"),
+            HalalStatus.MUSHBOOH,
+            "Speisefettsäuren - Quelle prüfen"
         ),
     )
 
-    /** Eindeutige Halal-Indikatoren (positiv). */
+    /** Positive Halal-Indikatoren in mehreren Sprachen. */
     val HALAL_INDICATORS = listOf(
-        "vegan", "végan", "100% pflanzlich", "rein pflanzlich", "plant-based",
-        "halal", "halal certified", "halal-zertifiziert",
+        "halal", "حلال",
+        "halal certified", "halal-zertifiziert", "halal certifié",
+        "vegan", "végan", "vegano", "végétalien",
+        "100% pflanzlich", "rein pflanzlich", "plant-based", "plant based", "100% plant",
+        "vegetarisch", "vegetarian",
+        "kosher", "koscher", "كوشر",
     )
 
-    /** Bewertet einen Ingredient-Text und liefert eine Analyse. */
+    /** Bewertet einen Ingredient-Text. */
     fun analyze(text: String, labels: List<String> = emptyList()): HalalAnalysis {
         if (text.isBlank() && labels.isEmpty()) {
             return HalalAnalysis(
@@ -205,19 +306,20 @@ object IngredientDatabase {
 
         val haramHits = HARAM.flatMap { rule ->
             rule.keywords.mapNotNull { kw ->
-                if (haystack.contains(kw)) ReasonItem(kw, rule.reason) else null
+                if (haystack.contains(kw.lowercase())) ReasonItem(kw, rule.reason) else null
             }
         }
         val mushboohHits = MUSHBOOH.flatMap { rule ->
             rule.keywords.mapNotNull { kw ->
-                if (haystack.contains(kw)) ReasonItem(kw, rule.reason) else null
+                if (haystack.contains(kw.lowercase())) ReasonItem(kw, rule.reason) else null
             }
         }
-        val halalHits = HALAL_INDICATORS.filter { haystack.contains(it) }
+        val halalHits = HALAL_INDICATORS.filter { haystack.contains(it.lowercase()) }
 
         val status = when {
             haramHits.isNotEmpty() -> HalalStatus.HARAM
             mushboohHits.isNotEmpty() -> HalalStatus.MUSHBOOH
+            halalHits.any { it == "halal" || it.contains("halal") } -> HalalStatus.HALAL
             halalHits.isNotEmpty() -> HalalStatus.HALAL
             else -> HalalStatus.LIKELY_HALAL
         }
@@ -228,7 +330,7 @@ object IngredientDatabase {
             HalalStatus.HALAL -> halalHits.map { "Halal-Indikator gefunden: \"$it\"" }
             HalalStatus.LIKELY_HALAL -> listOf(
                 "Keine haram- oder zweifelhaften Zutaten in der Liste erkannt. " +
-                "Dies ist keine Halal-Zertifizierung - bei tierischen Produkten Quelle prüfen."
+                "Dies ist keine offizielle Halal-Zertifizierung."
             )
             HalalStatus.UNKNOWN -> listOf("Zutatenliste fehlt")
         }
@@ -252,11 +354,7 @@ data class IngredientRule(
 data class ReasonItem(val keyword: String, val reason: String)
 
 enum class HalalStatus {
-    HALAL,
-    LIKELY_HALAL,
-    MUSHBOOH,
-    HARAM,
-    UNKNOWN,
+    HALAL, LIKELY_HALAL, MUSHBOOH, HARAM, UNKNOWN,
 }
 
 data class HalalAnalysis(

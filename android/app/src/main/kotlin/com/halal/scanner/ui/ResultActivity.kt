@@ -27,26 +27,57 @@ class ResultActivity : AppCompatActivity() {
         binding = ActivityResultBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val barcode = intent.getStringExtra(EXTRA_BARCODE) ?: run {
-            finish(); return
-        }
-
-        binding.txtBarcode.text = getString(R.string.result_barcode_label, barcode)
-        showLoading()
-
         binding.btnScanAgain.setOnClickListener {
             startActivity(Intent(this, ScannerActivity::class.java))
             finish()
         }
         binding.btnBack.setOnClickListener { finish() }
 
-        lifecycleScope.launch {
-            when (val r = client.fetchProduct(barcode)) {
-                is OpenFoodFactsClient.Result.Found -> showProduct(r.product)
-                is OpenFoodFactsClient.Result.NotFound -> showNotFound(barcode)
-                is OpenFoodFactsClient.Result.Error -> showError(r.message)
+        val barcode = intent.getStringExtra(EXTRA_BARCODE)
+        val ocrText = intent.getStringExtra(EXTRA_OCR_TEXT)
+
+        when {
+            !barcode.isNullOrBlank() -> {
+                binding.txtBarcode.text = getString(R.string.result_barcode_label, barcode)
+                showLoading()
+                lifecycleScope.launch {
+                    when (val r = client.fetchProduct(barcode)) {
+                        is OpenFoodFactsClient.Result.Found -> showProduct(r.product)
+                        is OpenFoodFactsClient.Result.NotFound -> showNotFound(barcode)
+                        is OpenFoodFactsClient.Result.Error -> showError(r.message)
+                    }
+                }
             }
+            !ocrText.isNullOrBlank() -> {
+                binding.txtBarcode.text = getString(R.string.result_ocr_source)
+                showOcrResult(ocrText)
+            }
+            else -> finish()
         }
+    }
+
+    private fun showOcrResult(text: String) {
+        val analysis = IngredientDatabase.analyze(text, emptyList())
+
+        binding.progressBar.visibility = View.GONE
+        binding.contentGroup.visibility = View.VISIBLE
+        binding.errorBox.visibility = View.GONE
+
+        binding.txtProductName.text = getString(R.string.result_ocr_product_label)
+        binding.txtBrand.text = ""
+        binding.txtBrand.visibility = View.GONE
+        binding.productImage.visibility = View.GONE
+
+        // Pseudo-Product anlegen damit renderIngredients funktioniert
+        val pseudo = Product(
+            barcode = "",
+            name = null, brand = null, imageUrl = null,
+            ingredientsText = text, ingredientsLanguage = null,
+            labels = emptyList(), countries = emptyList(),
+            novaGroup = null, nutriScore = null,
+        )
+        renderStatus(analysis)
+        renderIngredients(pseudo, analysis)
     }
 
     private fun showLoading() {
@@ -133,5 +164,6 @@ class ResultActivity : AppCompatActivity() {
 
     companion object {
         const val EXTRA_BARCODE = "barcode"
+        const val EXTRA_OCR_TEXT = "ocr_text"
     }
 }

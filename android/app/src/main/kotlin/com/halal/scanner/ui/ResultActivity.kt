@@ -74,24 +74,21 @@ class ResultActivity : AppCompatActivity() {
         binding.txtProductName.text = getString(R.string.result_ocr_product_label)
         binding.txtBrand.text = ""
         binding.txtBrand.visibility = View.GONE
+        binding.productImage.visibility = View.GONE  // kleine Kachel aus
 
-        // Foto anzeigen falls vorhanden - bei OCR groß damit User die markierten Stellen sieht
+        // Großes OCR-Foto in dedizierter ImageView anzeigen
         if (!photoPath.isNullOrBlank() && File(photoPath).exists()) {
             try {
                 val bitmap = BitmapFactory.decodeFile(photoPath)
-                binding.productImage.setImageBitmap(bitmap)
-                binding.productImage.visibility = View.VISIBLE
-                // Größeres Format für OCR (statt der kleinen 120x120 Kachel)
-                val params = binding.productImage.layoutParams
-                params.width = androidx.constraintlayout.widget.ConstraintLayout.LayoutParams.MATCH_PARENT
-                params.height = androidx.constraintlayout.widget.ConstraintLayout.LayoutParams.WRAP_CONTENT
-                binding.productImage.layoutParams = params
-                binding.productImage.adjustViewBounds = true
+                if (bitmap != null) {
+                    binding.ocrPhotoView.setImageBitmap(bitmap)
+                    binding.ocrPhotoView.visibility = View.VISIBLE
+                } else {
+                    android.util.Log.w("ResultActivity", "Bitmap decode returned null for: $photoPath")
+                }
             } catch (e: Exception) {
-                binding.productImage.visibility = View.GONE
+                android.util.Log.e("ResultActivity", "Photo load failed", e)
             }
-        } else {
-            binding.productImage.visibility = View.GONE
         }
 
         renderStatus(analysis)
@@ -219,6 +216,15 @@ class ResultActivity : AppCompatActivity() {
                 startActivity(
                     Intent(Intent.ACTION_VIEW,
                         android.net.Uri.parse("https://world.openfoodfacts.org/cgi/product.pl?type=edit&code=$barcode"))
+                )
+            } catch (_: Exception) {}
+        }
+        binding.btnSearchGoogle.visibility = View.VISIBLE
+        binding.btnSearchGoogle.setOnClickListener {
+            try {
+                startActivity(
+                    Intent(Intent.ACTION_VIEW,
+                        android.net.Uri.parse("https://www.google.com/search?q=barcode+$barcode"))
                 )
             } catch (_: Exception) {}
         }

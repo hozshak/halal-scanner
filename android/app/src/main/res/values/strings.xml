@@ -120,6 +120,11 @@
     <string name="front_take_new">Neues Foto</string>
     <string name="front_searching">Suche „%1$s\" in Datenbank…</string>
     <string name="front_no_results">Kein Produkt für „%1$s\" gefunden. Versuche bessere Beleuchtung oder OCR der Zutatenliste direkt.</string>
+    <string name="front_photo_taken">Foto aufgenommen</string>
+    <string name="front_search_image">🔍  Bild bei Google suchen</string>
+    <string name="front_retake">Neues Foto</string>
+    <string name="front_share_chooser_title">Bild-Suche öffnen mit…</string>
+    <string name="result_search_google">Im Browser nach Barcode suchen</string>
 
     <string name="more_credit">Entwickelt von</string>
     <string name="more_instagram">@en0o0n auf Instagram</string>

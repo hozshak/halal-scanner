@@ -89,6 +89,7 @@ class TextScannerActivity : AppCompatActivity() {
                         startActivity(
                             Intent(this, ResultActivity::class.java)
                                 .putExtra(ResultActivity.EXTRA_OCR_TEXT, text)
+                                .putExtra(ResultActivity.EXTRA_OCR_PHOTO_PATH, file.absolutePath)
                         )
                         finish()
                     }

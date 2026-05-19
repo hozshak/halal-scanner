@@ -1,5 +1,8 @@
 package com.halal.scanner.ui
 
+import android.content.ActivityNotFoundException
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -26,6 +29,22 @@ class MoreFragment : Fragment() {
         updateLangLabel()
         binding.cardLanguage.setOnClickListener { showLanguageDialog() }
         binding.cardAbout.setOnClickListener { showInfo() }
+        binding.cardInstagram.setOnClickListener { openInstagram() }
+    }
+
+    private fun openInstagram() {
+        val username = "en0o0n"
+        // Versuch zuerst direkt in der Instagram-App zu öffnen
+        try {
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://instagram.com/$username"))
+            intent.setPackage("com.instagram.android")
+            startActivity(intent)
+            return
+        } catch (_: ActivityNotFoundException) {}
+        // Fallback: Browser
+        try {
+            startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://instagram.com/$username")))
+        } catch (_: ActivityNotFoundException) {}
     }
 
     override fun onDestroyView() {

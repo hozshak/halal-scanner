@@ -64,6 +64,56 @@
     <string name="result_not_found_short">Produkt nicht gefunden</string>
     <string name="result_try_ocr_hint">Das funktioniert bei jedem Produkt — Kamera einfach auf die Zutatenliste halten.</string>
 
+    <!-- Begründungen für Halal-Analyse -->
+    <string name="reason_pork">Schweinefleisch oder daraus gewonnenes Produkt — haram nach Quran 2:173</string>
+    <string name="reason_alcohol">Alkohol/Ethanol — haram (Khamr) nach Quran 5:90</string>
+    <string name="reason_carmine">Karmin (E120) — Farbstoff aus Cochenille-Schildläusen, von den meisten Gelehrten als haram eingestuft</string>
+    <string name="reason_shellac">Schellack (E904) — Sekret von Schildlaus-Insekten</string>
+    <string name="reason_animal_rennet">Tierisches Lab aus nicht-halal Schlachtung</string>
+    <string name="reason_blood">Blut-Produkt — haram nach Quran 2:173</string>
+    <string name="reason_lcysteine">L-Cystein (E920) — oft aus Schweineborsten oder menschlichem Haar</string>
+    <string name="reason_pepsin">Pepsin — überwiegend aus Schweinemägen</string>
+    <string name="reason_aspic">Aspik — oft auf Schweinefleisch-Basis</string>
+    <string name="reason_bone_phosphate">E542 (Knochenphosphat) — aus tierischen Knochen, meist Schwein</string>
+
+    <string name="reason_gelatin">Gelatine — tierische Quelle (Schwein/Rind/Fisch) muss geprüft werden</string>
+    <string name="reason_diglycerides">Mono-/Diglyceride (E471-E479) — können tierischer oder pflanzlicher Herkunft sein</string>
+    <string name="reason_stearoyl_lactylate">Stearoyllaktylate (E481/E482) — Fettsäure-Quelle prüfen</string>
+    <string name="reason_sorbitan">Sorbitan-Ester (E491-E495) — Fettsäure-Quelle prüfen</string>
+    <string name="reason_fatty_acid_salts">E470 (Speisefettsäure-Salze) — Quelle prüfen</string>
+    <string name="reason_sodium_inosinate">E631 (Natriuminosinat) — kann aus Fleisch oder Fisch sein</string>
+    <string name="reason_sodium_ribonucleotide">E635 (Natriumribonukleotid) — oft tierischen Ursprungs</string>
+    <string name="reason_sodium_guanylate">E627 (Natriumguanylat) — kann tierisch sein</string>
+    <string name="reason_glycerin">Glycerin (E422) — kann tierisches Fett, pflanzlich oder synthetisch sein</string>
+    <string name="reason_triacetin">E1518 (Triacetin) — kann tierisches Glycerin enthalten</string>
+    <string name="reason_glycerol_ester">E445 (Glycerolester) — Quelle prüfen</string>
+    <string name="reason_natural_flavor">Natürliches Aroma — Quelle nicht spezifiziert, kann Alkohol oder Tier-Bestandteile als Träger enthalten</string>
+    <string name="reason_flavor_extract">Aromen-Extrakt — Trägerstoff kann Alkohol enthalten</string>
+    <string name="reason_vanilla_extract">Vanille-Extrakt — meist auf Ethanol-Basis hergestellt</string>
+    <string name="reason_rennet">Lab/Rennet — tierisch oder mikrobiell, Quelle prüfen</string>
+    <string name="reason_whey">Molke — kritisch wenn der Käse mit tierischem Lab hergestellt wurde</string>
+    <string name="reason_emulsifier">Emulgator — Quelle muss geprüft werden</string>
+    <string name="reason_lecithin">Lecithin (E322) — meist Soja (halal), aber Ei-Lecithin möglich</string>
+    <string name="reason_beef_gelatin">Rindergelatine — nur halal wenn aus halal-geschlachtetem Rind</string>
+    <string name="reason_beef_tallow">Rinderfett/Talg — nur halal wenn aus halal-Schlachtung</string>
+    <string name="reason_chicken_fat">Geflügelfett — nur halal wenn aus halal-Schlachtung</string>
+    <string name="reason_lamb_fat">Lamm-/Schaffett — nur halal wenn aus halal-Schlachtung</string>
+    <string name="reason_amylase">E1100 (Amylase) — kann tierischen oder mikrobiellen Ursprungs sein</string>
+    <string name="reason_lysozyme">E1105 (Lysozym) — aus Ei oder tierisch</string>
+    <string name="reason_vanillin">Natürliches Vanillin — oft auf Alkohol-Basis hergestellt</string>
+    <string name="reason_propylene_glycol">E1520 (Propylenglykol) — oft als Träger für alkoholhaltige Aromen</string>
+    <string name="reason_magnesium_stearate">Magnesiumstearat — Fettsäure-Quelle prüfen (tierisch oder pflanzlich)</string>
+
+    <string name="reason_halal_indicator">Halal-Indikator auf der Verpackung gefunden</string>
+    <string name="reason_likely_halal">Keine haram- oder zweifelhaften Zutaten in der Liste erkannt. Dies ist keine offizielle Halal-Zertifizierung — bei tierischen Produkten sollte die Quelle geprüft werden.</string>
+    <string name="reason_no_ingredients">Keine Zutatenliste verfügbar</string>
+
+    <string name="result_photo_header">Aufgenommenes Foto</string>
+    <string name="result_extracted_text_header">ERKANNTER TEXT</string>
+
+    <string name="more_credit">Entwickelt von</string>
+    <string name="more_instagram">@en0o0n auf Instagram</string>
+
     <string name="lang_choose">Sprache wählen</string>
     <string name="lang_de">Deutsch</string>
     <string name="lang_en">English</string>

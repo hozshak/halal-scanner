@@ -64,6 +64,55 @@
     <string name="result_not_found_short">Product not found</string>
     <string name="result_try_ocr_hint">Works for any product — just point the camera at the ingredient list.</string>
 
+    <string name="reason_pork">Pork or pork-derived product — haram per Quran 2:173</string>
+    <string name="reason_alcohol">Alcohol/Ethanol — haram (Khamr) per Quran 5:90</string>
+    <string name="reason_carmine">Carmine (E120) — colorant from cochineal insects, considered haram by most scholars</string>
+    <string name="reason_shellac">Shellac (E904) — secretion of scale insects</string>
+    <string name="reason_animal_rennet">Animal rennet from non-halal slaughter</string>
+    <string name="reason_blood">Blood product — haram per Quran 2:173</string>
+    <string name="reason_lcysteine">L-Cysteine (E920) — often sourced from pig bristles or human hair</string>
+    <string name="reason_pepsin">Pepsin — predominantly from pig stomach</string>
+    <string name="reason_aspic">Aspic — often pork-based</string>
+    <string name="reason_bone_phosphate">E542 (Bone phosphate) — from animal bones, often pork</string>
+
+    <string name="reason_gelatin">Gelatin — source (pork/beef/fish) must be verified</string>
+    <string name="reason_diglycerides">Mono-/Diglycerides (E471-E479) — may be animal or plant origin</string>
+    <string name="reason_stearoyl_lactylate">Stearoyl lactylates (E481/E482) — fatty acid source must be verified</string>
+    <string name="reason_sorbitan">Sorbitan esters (E491-E495) — fatty acid source must be verified</string>
+    <string name="reason_fatty_acid_salts">E470 (Fatty acid salts) — source must be verified</string>
+    <string name="reason_sodium_inosinate">E631 (Sodium inosinate) — may come from meat or fish</string>
+    <string name="reason_sodium_ribonucleotide">E635 (Sodium ribonucleotide) — often animal origin</string>
+    <string name="reason_sodium_guanylate">E627 (Sodium guanylate) — may be animal-derived</string>
+    <string name="reason_glycerin">Glycerin (E422) — may be animal fat, plant or synthetic</string>
+    <string name="reason_triacetin">E1518 (Triacetin) — may contain animal glycerin</string>
+    <string name="reason_glycerol_ester">E445 (Glycerol esters) — source must be verified</string>
+    <string name="reason_natural_flavor">Natural flavor — source not specified, may use alcohol or animal carriers</string>
+    <string name="reason_flavor_extract">Flavor extract — carrier may be alcohol</string>
+    <string name="reason_vanilla_extract">Vanilla extract — usually made with ethanol</string>
+    <string name="reason_rennet">Rennet — animal or microbial, source must be verified</string>
+    <string name="reason_whey">Whey — problematic if the cheese was made with animal rennet</string>
+    <string name="reason_emulsifier">Emulsifier — source must be verified</string>
+    <string name="reason_lecithin">Lecithin (E322) — usually soy (halal) but egg-lecithin is possible</string>
+    <string name="reason_beef_gelatin">Beef gelatin — only halal if from halal-slaughtered cattle</string>
+    <string name="reason_beef_tallow">Beef tallow — only halal if from halal slaughter</string>
+    <string name="reason_chicken_fat">Chicken/poultry fat — only halal if from halal slaughter</string>
+    <string name="reason_lamb_fat">Lamb/sheep fat — only halal if from halal slaughter</string>
+    <string name="reason_amylase">E1100 (Amylase) — may be animal or microbial</string>
+    <string name="reason_lysozyme">E1105 (Lysozyme) — from egg or animal</string>
+    <string name="reason_vanillin">Natural vanillin — often made with ethanol</string>
+    <string name="reason_propylene_glycol">E1520 (Propylene glycol) — often a carrier for alcoholic flavors</string>
+    <string name="reason_magnesium_stearate">Magnesium stearate — fatty acid source must be verified (animal or plant)</string>
+
+    <string name="reason_halal_indicator">Halal indicator found on packaging</string>
+    <string name="reason_likely_halal">No haram or doubtful ingredients detected in the list. This is not an official halal certification — for animal products the source should still be verified.</string>
+    <string name="reason_no_ingredients">No ingredient list available</string>
+
+    <string name="result_photo_header">Captured photo</string>
+    <string name="result_extracted_text_header">RECOGNIZED TEXT</string>
+
+    <string name="more_credit">Developed by</string>
+    <string name="more_instagram">@en0o0n on Instagram</string>
+
     <string name="lang_choose">Choose language</string>
     <string name="lang_de">Deutsch</string>
     <string name="lang_en">English</string>

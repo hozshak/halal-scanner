@@ -64,6 +64,55 @@
     <string name="result_not_found_short">المنتج غير موجود</string>
     <string name="result_try_ocr_hint">يعمل لأي منتج — وجّه الكاميرا نحو قائمة المكونات.</string>
 
+    <string name="reason_pork">لحم الخنزير أو مشتقاته — حرام حسب القرآن 2:173</string>
+    <string name="reason_alcohol">كحول/إيثانول — حرام (خمر) حسب القرآن 5:90</string>
+    <string name="reason_carmine">كارمين (E120) — صبغ من حشرات القرمز، يصنفه معظم العلماء كحرام</string>
+    <string name="reason_shellac">شيلاك (E904) — إفراز حشرات</string>
+    <string name="reason_animal_rennet">منفحة حيوانية من ذبح غير حلال</string>
+    <string name="reason_blood">منتج دم — حرام حسب القرآن 2:173</string>
+    <string name="reason_lcysteine">إل-سيستين (E920) — غالباً من شعر الخنزير أو شعر الإنسان</string>
+    <string name="reason_pepsin">بيبسين — غالباً من معدة الخنزير</string>
+    <string name="reason_aspic">أسبيك (جيلي اللحم) — غالباً يعتمد على الخنزير</string>
+    <string name="reason_bone_phosphate">E542 (فوسفات العظام) — من عظام حيوانية، غالباً خنزير</string>
+
+    <string name="reason_gelatin">جيلاتين — يجب التحقق من المصدر (خنزير/بقر/سمك)</string>
+    <string name="reason_diglycerides">أحاديات/ثنائيات الجلسريد (E471-E479) — قد تكون حيوانية أو نباتية</string>
+    <string name="reason_stearoyl_lactylate">ستيارويل لاكتيلات (E481/E482) — يجب التحقق من مصدر الأحماض الدهنية</string>
+    <string name="reason_sorbitan">إسترات السوربيتان (E491-E495) — يجب التحقق من مصدر الأحماض الدهنية</string>
+    <string name="reason_fatty_acid_salts">E470 (أملاح الأحماض الدهنية) — يجب التحقق من المصدر</string>
+    <string name="reason_sodium_inosinate">E631 (إينوسينات الصوديوم) — قد يأتي من اللحم أو السمك</string>
+    <string name="reason_sodium_ribonucleotide">E635 (ريبونوكليوتيد الصوديوم) — غالباً حيواني المصدر</string>
+    <string name="reason_sodium_guanylate">E627 (جوانيلات الصوديوم) — قد يكون حيوانياً</string>
+    <string name="reason_glycerin">جلسرين (E422) — قد يكون دهن حيواني أو نباتي أو صناعي</string>
+    <string name="reason_triacetin">E1518 (تراسيتين) — قد يحتوي على جلسرين حيواني</string>
+    <string name="reason_glycerol_ester">E445 (إسترات الجلسرول) — يجب التحقق من المصدر</string>
+    <string name="reason_natural_flavor">نكهة طبيعية — المصدر غير محدد، قد يحتوي على كحول أو مواد حيوانية كحامل</string>
+    <string name="reason_flavor_extract">مستخلص نكهة — قد يكون الحامل كحولاً</string>
+    <string name="reason_vanilla_extract">مستخلص فانيلا — غالباً يُصنع على أساس الإيثانول</string>
+    <string name="reason_rennet">منفحة — حيوانية أو ميكروبية، يجب التحقق</string>
+    <string name="reason_whey">مصل اللبن — إشكالية إذا صُنع الجبن بمنفحة حيوانية</string>
+    <string name="reason_emulsifier">مستحلب — يجب التحقق من المصدر</string>
+    <string name="reason_lecithin">ليسيثين (E322) — غالباً من الصويا (حلال) لكن قد يكون من البيض</string>
+    <string name="reason_beef_gelatin">جيلاتين بقري — حلال فقط إذا كان من بقر مذبوح ذبحاً حلالاً</string>
+    <string name="reason_beef_tallow">شحم بقري — حلال فقط إذا كان من ذبح حلال</string>
+    <string name="reason_chicken_fat">دهن دجاج — حلال فقط إذا كان من ذبح حلال</string>
+    <string name="reason_lamb_fat">دهن حمل/خروف — حلال فقط إذا كان من ذبح حلال</string>
+    <string name="reason_amylase">E1100 (أميليز) — قد يكون حيوانياً أو ميكروبياً</string>
+    <string name="reason_lysozyme">E1105 (ليزوزيم) — من البيض أو حيواني</string>
+    <string name="reason_vanillin">فانيلين طبيعي — غالباً يُصنع على أساس كحولي</string>
+    <string name="reason_propylene_glycol">E1520 (بروبيلين جلايكول) — غالباً حامل لنكهات كحولية</string>
+    <string name="reason_magnesium_stearate">ستيارات المغنيسيوم — يجب التحقق من مصدر الأحماض الدهنية (حيواني أو نباتي)</string>
+
+    <string name="reason_halal_indicator">تم العثور على إشارة حلال على العبوة</string>
+    <string name="reason_likely_halal">لم يتم رصد أي مكون حرام أو مشبوه في القائمة. هذه ليست شهادة حلال رسمية — للمنتجات الحيوانية يجب التحقق من المصدر.</string>
+    <string name="reason_no_ingredients">قائمة المكونات غير متوفرة</string>
+
+    <string name="result_photo_header">الصورة الملتقطة</string>
+    <string name="result_extracted_text_header">النص المستخرج</string>
+
+    <string name="more_credit">طوّر من قبل</string>
+    <string name="more_instagram">@en0o0n على إنستغرام</string>
+
     <string name="lang_choose">اختر اللغة</string>
     <string name="lang_de">Deutsch</string>
     <string name="lang_en">English</string>

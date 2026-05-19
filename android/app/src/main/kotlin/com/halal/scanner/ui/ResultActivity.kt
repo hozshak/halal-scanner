@@ -1,12 +1,19 @@
 package com.halal.scanner.ui
 
 import android.content.Intent
+import android.graphics.BitmapFactory
 import android.graphics.Color
 import android.os.Bundle
+import android.text.Spannable
+import android.text.SpannableStringBuilder
+import android.text.style.BackgroundColorSpan
+import android.text.style.ForegroundColorSpan
+import android.text.style.StyleSpan
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import coil.load
+import java.io.File
 import com.halal.scanner.R
 import com.halal.scanner.data.OpenFoodFactsClient
 import com.halal.scanner.data.Product
@@ -50,13 +57,14 @@ class ResultActivity : AppCompatActivity() {
             }
             !ocrText.isNullOrBlank() -> {
                 binding.txtBarcode.text = getString(R.string.result_ocr_source)
-                showOcrResult(ocrText)
+                val photoPath = intent.getStringExtra(EXTRA_OCR_PHOTO_PATH)
+                showOcrResult(ocrText, photoPath)
             }
             else -> finish()
         }
     }
 
-    private fun showOcrResult(text: String) {
+    private fun showOcrResult(text: String, photoPath: String?) {
         val analysis = IngredientDatabase.analyze(text, emptyList())
 
         binding.progressBar.visibility = View.GONE
@@ -66,18 +74,66 @@ class ResultActivity : AppCompatActivity() {
         binding.txtProductName.text = getString(R.string.result_ocr_product_label)
         binding.txtBrand.text = ""
         binding.txtBrand.visibility = View.GONE
-        binding.productImage.visibility = View.GONE
 
-        // Pseudo-Product anlegen damit renderIngredients funktioniert
-        val pseudo = Product(
-            barcode = "",
-            name = null, brand = null, imageUrl = null,
-            ingredientsText = text, ingredientsLanguage = null,
-            labels = emptyList(), countries = emptyList(),
-            novaGroup = null, nutriScore = null,
-        )
+        // Foto anzeigen falls vorhanden
+        if (!photoPath.isNullOrBlank() && File(photoPath).exists()) {
+            try {
+                val bitmap = BitmapFactory.decodeFile(photoPath)
+                binding.productImage.setImageBitmap(bitmap)
+                binding.productImage.visibility = View.VISIBLE
+            } catch (e: Exception) {
+                binding.productImage.visibility = View.GONE
+            }
+        } else {
+            binding.productImage.visibility = View.GONE
+        }
+
         renderStatus(analysis)
-        renderIngredients(pseudo, analysis)
+
+        // Spannable mit Farb-Highlights direkt auf dem OCR-Text
+        val spannable = buildHighlightedText(text, analysis.haramTriggers, analysis.mushboohTriggers)
+        binding.txtIngredients.text = spannable
+        binding.txtIngredients.visibility = View.VISIBLE
+        binding.txtIngredientsHeader.text = getString(R.string.result_extracted_text_header)
+        binding.txtIngredientsHeader.visibility = View.VISIBLE
+    }
+
+    /**
+     * Erzeugt SpannableString in dem haram-Trigger ROT und mushbooh-Trigger ORANGE
+     * unterlegt werden. Statt der hässlichen ⚠️-Klammern.
+     */
+    private fun buildHighlightedText(
+        text: String,
+        haramTriggers: List<String>,
+        mushboohTriggers: List<String>,
+    ): SpannableStringBuilder {
+        val sb = SpannableStringBuilder(text)
+        val haramBg = 0x66E54B4B
+        val mushBg = 0x66E6A23C
+        val white = Color.WHITE
+
+        fun highlight(triggers: List<String>, bgColor: Int) {
+            // Längste zuerst damit überlappende Treffer korrekt markiert werden
+            val sorted = triggers.distinct().sortedByDescending { it.length }
+            for (t in sorted) {
+                val regex = Regex(Regex.escape(t), RegexOption.IGNORE_CASE)
+                for (match in regex.findAll(sb.toString())) {
+                    sb.setSpan(BackgroundColorSpan(bgColor),
+                        match.range.first, match.range.last + 1,
+                        Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+                    sb.setSpan(ForegroundColorSpan(white),
+                        match.range.first, match.range.last + 1,
+                        Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+                    sb.setSpan(StyleSpan(android.graphics.Typeface.BOLD),
+                        match.range.first, match.range.last + 1,
+                        Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+                }
+            }
+        }
+        highlight(mushboohTriggers, mushBg)
+        // Haram zuletzt damit es ggf. Mushbooh überschreibt
+        highlight(haramTriggers, haramBg)
+        return sb
     }
 
     private fun showLoading() {
@@ -123,7 +179,7 @@ class ResultActivity : AppCompatActivity() {
         binding.statusBadge.setBackgroundColor(color)
         binding.txtStatusLabel.text = "$emoji  $label"
 
-        binding.txtReasons.text = analysis.reasons.joinToString("\n\n") { "• $it" }
+        binding.txtReasons.text = analysis.reasonResIds.joinToString("\n\n") { "• " + getString(it) }
     }
 
     private fun renderIngredients(product: Product, analysis: HalalAnalysis) {
@@ -133,17 +189,9 @@ class ResultActivity : AppCompatActivity() {
             binding.txtIngredientsHeader.visibility = View.GONE
             return
         }
-        // Markiere haram/mushbooh-Trigger im Text mit eckigen Klammern
-        val triggers = (analysis.haramTriggers + analysis.mushboohTriggers).distinct()
-            .sortedByDescending { it.length }
-        var marked: String = raw
-        for (t in triggers) {
-            // Case-insensitive replace - via String-Extension um Kotlin-Overload-Resolution-
-            // Issue mit Regex.replace zu umgehen.
-            val regex = Regex(Regex.escape(t), RegexOption.IGNORE_CASE)
-            marked = marked.replace(regex) { match -> "⚠️${match.value}⚠️" }
-        }
-        binding.txtIngredients.text = marked
+        binding.txtIngredients.text = buildHighlightedText(
+            raw, analysis.haramTriggers, analysis.mushboohTriggers
+        )
         binding.txtIngredients.visibility = View.VISIBLE
         binding.txtIngredientsHeader.visibility = View.VISIBLE
     }
@@ -166,10 +214,17 @@ class ResultActivity : AppCompatActivity() {
         binding.contentGroup.visibility = View.GONE
         binding.errorBox.visibility = View.VISIBLE
         binding.txtError.text = getString(R.string.result_error, msg)
+        binding.btnTryOcr.visibility = View.VISIBLE
+        binding.txtTryOcrHint.visibility = View.VISIBLE
+        binding.btnTryOcr.setOnClickListener {
+            startActivity(Intent(this, TextScannerActivity::class.java))
+            finish()
+        }
     }
 
     companion object {
         const val EXTRA_BARCODE = "barcode"
         const val EXTRA_OCR_TEXT = "ocr_text"
+        const val EXTRA_OCR_PHOTO_PATH = "ocr_photo_path"
     }
 }

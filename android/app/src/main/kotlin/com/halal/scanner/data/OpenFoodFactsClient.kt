@@ -40,6 +40,8 @@ class OpenFoodFactsClient {
                 .header("User-Agent", "HalalScanner-Android/1.0")
                 .build()
             client.newCall(req).execute().use { resp ->
+                // 404 vom Server bedeutet "Produkt unbekannt" - das ist kein Fehler
+                if (resp.code == 404) return@withContext Result.NotFound
                 if (!resp.isSuccessful) return@withContext Result.Error("HTTP ${resp.code}")
                 val body = resp.body?.string() ?: return@withContext Result.Error("empty body")
                 val json = JSONObject(body)

@@ -73,6 +73,28 @@
                 android:alpha="0.6"
                 android:text="@string/result_try_ocr_hint"
                 android:visibility="gone" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnContribute"
+                style="@style/Widget.Material3.Button.TextButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_marginHorizontal="16dp"
+                android:text="@string/result_contribute_button"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/txtSourcesSearched"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_marginHorizontal="20dp"
+                android:gravity="center"
+                android:textSize="10sp"
+                android:alpha="0.4"
+                android:text="@string/result_searched_in_sources"
+                android:visibility="gone" />
         </LinearLayout>
 
         <androidx.constraintlayout.widget.Group

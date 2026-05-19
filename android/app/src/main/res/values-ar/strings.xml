@@ -109,6 +109,8 @@
 
     <string name="result_photo_header">الصورة الملتقطة</string>
     <string name="result_extracted_text_header">النص المستخرج</string>
+    <string name="result_contribute_button">أضف المنتج إلى OpenFoodFacts</string>
+    <string name="result_searched_in_sources">تم البحث في 4 قواعد بيانات: Open Food Facts · Open Beauty Facts · Open Products Facts · Open Pet Food Facts</string>
 
     <string name="more_credit">طوّر من قبل</string>
     <string name="more_instagram">@en0o0n على إنستغرام</string>

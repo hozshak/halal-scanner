@@ -9,43 +9,57 @@ import org.json.JSONObject
 import java.util.concurrent.TimeUnit
 
 /**
- * Holt Produkt-Infos vom OpenFoodFacts-Public-API.
- *
- * Endpoint: https://world.openfoodfacts.org/api/v2/product/<barcode>.json
- * Kostenlos, kein API-Key erforderlich.
+ * Holt Produkt-Infos von den vier Open-Datenbanken der OpenFoodFacts-Familie.
+ * Alle vier kostenlos, kein API-Key. Sequenziell durchprobiert bis Treffer.
  */
 class OpenFoodFactsClient {
 
     private val client = OkHttpClient.Builder()
-        .connectTimeout(10, TimeUnit.SECONDS)
-        .readTimeout(15, TimeUnit.SECONDS)
+        .connectTimeout(8, TimeUnit.SECONDS)
+        .readTimeout(12, TimeUnit.SECONDS)
         .build()
 
     sealed class Result {
-        data class Found(val product: Product) : Result()
+        data class Found(val product: Product, val source: String) : Result()
         object NotFound : Result()
         data class Error(val message: String) : Result()
     }
 
+    private val sources = listOf(
+        "world.openfoodfacts.org" to "Open Food Facts",
+        "world.openbeautyfacts.org" to "Open Beauty Facts",
+        "world.openproductsfacts.org" to "Open Products Facts",
+        "world.openpetfoodfacts.org" to "Open Pet Food Facts",
+    )
+
     suspend fun fetchProduct(barcode: String): Result = withContext(Dispatchers.IO) {
-        try {
-            // v2 mit ausgewählten Feldern für schnellere Antwort
-            val url = "https://world.openfoodfacts.org/api/v2/product/$barcode.json" +
+        var lastError: Result.Error? = null
+        for ((host, label) in sources) {
+            when (val r = fetchFromHost(barcode, host, label)) {
+                is Result.Found -> return@withContext r
+                is Result.Error -> lastError = r
+                Result.NotFound -> { /* try next */ }
+            }
+        }
+        lastError ?: Result.NotFound
+    }
+
+    private fun fetchFromHost(barcode: String, host: String, label: String): Result {
+        return try {
+            val url = "https://$host/api/v2/product/$barcode.json" +
                 "?fields=code,product_name,product_name_de,product_name_en,brands," +
                 "image_front_url,image_url,ingredients_text,ingredients_text_de," +
-                "ingredients_text_en,ingredients_text_with_allergens,labels_tags," +
-                "labels,countries_tags,nova_group,nutriscore_grade"
+                "ingredients_text_en,labels_tags,countries_tags,nova_group,nutriscore_grade"
             val req = Request.Builder()
                 .url(url)
                 .header("User-Agent", "HalalScanner-Android/1.0")
                 .build()
             client.newCall(req).execute().use { resp ->
-                // 404 vom Server bedeutet "Produkt unbekannt" - das ist kein Fehler
-                if (resp.code == 404) return@withContext Result.NotFound
-                if (!resp.isSuccessful) return@withContext Result.Error("HTTP ${resp.code}")
-                val body = resp.body?.string() ?: return@withContext Result.Error("empty body")
+                if (resp.code == 404) return Result.NotFound
+                if (!resp.isSuccessful) return Result.Error("HTTP ${resp.code} from $host")
+                val body = resp.body?.string() ?: return Result.Error("empty body")
                 val json = JSONObject(body)
-                if (json.optInt("status") != 1) return@withContext Result.NotFound
+                if (json.optInt("status") != 1) return Result.NotFound
 
                 val p = json.getJSONObject("product")
                 val name = p.optString("product_name_de").ifBlank {
@@ -78,7 +92,8 @@ class OpenFoodFactsClient {
                         countries = (p.optJSONArray("countries_tags") ?: JSONArray()).toStringList(),
                         novaGroup = p.optInt("nova_group", 0).takeIf { it > 0 },
                         nutriScore = p.optString("nutriscore_grade").ifBlank { null },
-                    )
+                    ),
+                    source = label,
                 )
             }
         } catch (e: Exception) {

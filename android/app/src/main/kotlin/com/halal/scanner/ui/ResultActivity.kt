@@ -207,6 +207,16 @@ class ResultActivity : AppCompatActivity() {
             startActivity(Intent(this, TextScannerActivity::class.java))
             finish()
         }
+        binding.btnContribute.visibility = View.VISIBLE
+        binding.btnContribute.setOnClickListener {
+            try {
+                startActivity(
+                    Intent(Intent.ACTION_VIEW,
+                        android.net.Uri.parse("https://world.openfoodfacts.org/cgi/product.pl?type=edit&code=$barcode"))
+                )
+            } catch (_: Exception) {}
+        }
+        binding.txtSourcesSearched.visibility = View.VISIBLE
     }
 
     private fun showError(msg: String) {

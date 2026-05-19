@@ -110,6 +110,8 @@
 
     <string name="result_photo_header">Aufgenommenes Foto</string>
     <string name="result_extracted_text_header">ERKANNTER TEXT</string>
+    <string name="result_contribute_button">Produkt bei OpenFoodFacts eintragen</string>
+    <string name="result_searched_in_sources">Gesucht in 4 Datenbanken: Open Food Facts · Open Beauty Facts · Open Products Facts · Open Pet Food Facts</string>
 
     <string name="more_credit">Entwickelt von</string>
     <string name="more_instagram">@en0o0n auf Instagram</string>

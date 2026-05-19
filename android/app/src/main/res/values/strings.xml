@@ -113,6 +113,14 @@
     <string name="result_contribute_button">Produkt bei OpenFoodFacts eintragen</string>
     <string name="result_searched_in_sources">Gesucht in 4 Datenbanken: Open Food Facts · Open Beauty Facts · Open Products Facts · Open Pet Food Facts</string>
 
+    <string name="main_scan_front_title">Vorderseite scannen</string>
+    <string name="main_scan_front_desc">Foto vom Produkt — App findet es online und erklärt die Zutaten</string>
+    <string name="front_scanner_hint">Produkt-Vorderseite in den Rahmen halten (Name + Marke gut lesbar)</string>
+    <string name="front_capture_button">Foto + Produkt suchen</string>
+    <string name="front_take_new">Neues Foto</string>
+    <string name="front_searching">Suche „%1$s\" in Datenbank…</string>
+    <string name="front_no_results">Kein Produkt für „%1$s\" gefunden. Versuche bessere Beleuchtung oder OCR der Zutatenliste direkt.</string>
+
     <string name="more_credit">Entwickelt von</string>
     <string name="more_instagram">@en0o0n auf Instagram</string>
 

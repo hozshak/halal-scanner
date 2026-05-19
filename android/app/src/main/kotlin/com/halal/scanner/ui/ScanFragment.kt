@@ -23,7 +23,7 @@ class ScanFragment : Fragment() {
     private val binding get() = _binding!!
     private var pendingMode: Mode = Mode.BARCODE
 
-    enum class Mode { BARCODE, OCR }
+    enum class Mode { BARCODE, OCR, FRONT }
 
     private val cameraPerm = registerForActivityResult(ActivityResultContracts.RequestPermission()) { granted ->
         if (granted) launchScan()
@@ -43,6 +43,10 @@ class ScanFragment : Fragment() {
         }
         binding.cardOcr.setOnClickListener {
             pendingMode = Mode.OCR
+            requestCameraAndScan()
+        }
+        binding.cardFront.setOnClickListener {
+            pendingMode = Mode.FRONT
             requestCameraAndScan()
         }
         binding.btnManualLookup.setOnClickListener { lookupManual() }
@@ -70,6 +74,7 @@ class ScanFragment : Fragment() {
         val cls = when (pendingMode) {
             Mode.BARCODE -> ScannerActivity::class.java
             Mode.OCR -> TextScannerActivity::class.java
+            Mode.FRONT -> FrontScannerActivity::class.java
         }
         startActivity(Intent(requireContext(), cls))
     }

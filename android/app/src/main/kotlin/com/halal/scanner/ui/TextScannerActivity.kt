@@ -16,6 +16,7 @@ import com.google.mlkit.vision.common.InputImage
 import com.google.mlkit.vision.text.TextRecognition
 import com.google.mlkit.vision.text.latin.TextRecognizerOptions
 import com.halal.scanner.databinding.ActivityTextScannerBinding
+import com.halal.scanner.scanner.PhotoAnnotator
 import java.io.File
 
 class TextScannerActivity : AppCompatActivity() {
@@ -86,10 +87,13 @@ class TextScannerActivity : AppCompatActivity() {
                         binding.btnCapture.isEnabled = true
                         binding.btnCapture.alpha = 1f
                     } else {
+                        // Erzeuge annotierte Variante des Fotos mit eingezeichneten haram/mushbooh-Boxen
+                        val annotatedFile = File(file.parentFile, "annotated_${System.currentTimeMillis()}.jpg")
+                        val finalFile = PhotoAnnotator.annotate(file, result, annotatedFile) ?: file
                         startActivity(
                             Intent(this, ResultActivity::class.java)
                                 .putExtra(ResultActivity.EXTRA_OCR_TEXT, text)
-                                .putExtra(ResultActivity.EXTRA_OCR_PHOTO_PATH, file.absolutePath)
+                                .putExtra(ResultActivity.EXTRA_OCR_PHOTO_PATH, finalFile.absolutePath)
                         )
                         finish()
                     }

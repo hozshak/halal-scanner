@@ -112,6 +112,14 @@
     <string name="result_contribute_button">Add product to OpenFoodFacts</string>
     <string name="result_searched_in_sources">Searched in 4 databases: Open Food Facts · Open Beauty Facts · Open Products Facts · Open Pet Food Facts</string>
 
+    <string name="main_scan_front_title">Scan front of package</string>
+    <string name="main_scan_front_desc">Photo of product — app finds it online and explains ingredients</string>
+    <string name="front_scanner_hint">Hold product front inside the frame (name + brand should be readable)</string>
+    <string name="front_capture_button">Capture + search product</string>
+    <string name="front_take_new">New photo</string>
+    <string name="front_searching">Searching „%1$s\" in database…</string>
+    <string name="front_no_results">No product found for „%1$s\". Try better lighting or OCR the ingredient list directly.</string>
+
     <string name="more_credit">Developed by</string>
     <string name="more_instagram">@en0o0n on Instagram</string>
 

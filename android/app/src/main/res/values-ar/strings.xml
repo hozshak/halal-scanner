@@ -112,6 +112,14 @@
     <string name="result_contribute_button">أضف المنتج إلى OpenFoodFacts</string>
     <string name="result_searched_in_sources">تم البحث في 4 قواعد بيانات: Open Food Facts · Open Beauty Facts · Open Products Facts · Open Pet Food Facts</string>
 
+    <string name="main_scan_front_title">مسح واجهة المنتج</string>
+    <string name="main_scan_front_desc">صورة للمنتج — التطبيق يجده على الإنترنت ويشرح المكونات</string>
+    <string name="front_scanner_hint">ضع واجهة المنتج داخل الإطار (الاسم والعلامة واضحان)</string>
+    <string name="front_capture_button">التقاط + البحث عن المنتج</string>
+    <string name="front_take_new">صورة جديدة</string>
+    <string name="front_searching">جاري البحث عن „%1$s\" في قاعدة البيانات…</string>
+    <string name="front_no_results">لم يتم العثور على „%1$s\". جرب إضاءة أفضل أو مسح قائمة المكونات مباشرة.</string>
+
     <string name="more_credit">طوّر من قبل</string>
     <string name="more_instagram">@en0o0n على إنستغرام</string>
 

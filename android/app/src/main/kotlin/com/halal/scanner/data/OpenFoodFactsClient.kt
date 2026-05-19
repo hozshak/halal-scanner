@@ -101,6 +101,61 @@ class OpenFoodFactsClient {
         }
     }
 
+    /**
+     * Volltextsuche in OpenFoodFacts (für Front-Seite-Scanner).
+     * Liefert eine Liste von Treffern, sortiert nach Relevanz.
+     */
+    suspend fun search(query: String, limit: Int = 10): List<Product> = withContext(Dispatchers.IO) {
+        try {
+            val q = java.net.URLEncoder.encode(query, "UTF-8")
+            val url = "https://world.openfoodfacts.org/cgi/search.pl?" +
+                "search_terms=$q&search_simple=1&action=process&json=1&page_size=$limit" +
+                "&fields=code,product_name,product_name_de,product_name_en,brands," +
+                "image_front_url,image_url,ingredients_text,ingredients_text_de," +
+                "ingredients_text_en"
+            val req = Request.Builder()
+                .url(url)
+                .header("User-Agent", "HalalScanner-Android/1.0")
+                .build()
+            client.newCall(req).execute().use { resp ->
+                if (!resp.isSuccessful) return@withContext emptyList()
+                val body = resp.body?.string() ?: return@withContext emptyList()
+                val json = JSONObject(body)
+                val arr = json.optJSONArray("products") ?: return@withContext emptyList()
+                val out = mutableListOf<Product>()
+                for (i in 0 until arr.length()) {
+                    val p = arr.getJSONObject(i)
+                    val name = (p.optString("product_name_de").ifBlank {
+                        p.optString("product_name_en").ifBlank {
+                            p.optString("product_name").ifBlank { null }
+                        }
+                    }) ?: continue
+                    out += Product(
+                        barcode = p.optString("code"),
+                        name = name,
+                        brand = p.optString("brands").ifBlank { null },
+                        imageUrl = p.optString("image_front_url").ifBlank {
+                            p.optString("image_url").ifBlank { null }
+                        },
+                        ingredientsText = p.optString("ingredients_text_de").ifBlank {
+                            p.optString("ingredients_text_en").ifBlank {
+                                p.optString("ingredients_text").ifBlank { null }
+                            }
+                        },
+                        ingredientsLanguage = null,
+                        labels = emptyList(),
+                        countries = emptyList(),
+                        novaGroup = null,
+                        nutriScore = null,
+                    )
+                }
+                out
+            }
+        } catch (e: Exception) {
+            emptyList()
+        }
+    }
+
     private fun JSONArray.toStringList(): List<String> {
         val list = mutableListOf<String>()
         for (i in 0 until length()) list += optString(i)

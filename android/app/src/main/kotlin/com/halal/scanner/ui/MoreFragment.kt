@@ -34,16 +34,21 @@ class MoreFragment : Fragment() {
 
     private fun openInstagram() {
         val username = "en0o0n"
-        // Versuch zuerst direkt in der Instagram-App zu öffnen
+        // Versuch 1: Instagram-Deep-Link öffnet App direkt auf das Profil
         try {
-            val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://instagram.com/$username"))
-            intent.setPackage("com.instagram.android")
+            startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("instagram://user?username=$username")))
+            return
+        } catch (_: ActivityNotFoundException) {}
+        // Versuch 2: HTTPS-URL über Instagram-App
+        try {
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://www.instagram.com/$username/"))
+                .setPackage("com.instagram.android")
             startActivity(intent)
             return
         } catch (_: ActivityNotFoundException) {}
-        // Fallback: Browser
+        // Versuch 3: Browser
         try {
-            startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://instagram.com/$username")))
+            startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://www.instagram.com/$username/")))
         } catch (_: ActivityNotFoundException) {}
     }
 

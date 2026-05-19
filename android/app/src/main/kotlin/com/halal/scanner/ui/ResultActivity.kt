@@ -75,12 +75,18 @@ class ResultActivity : AppCompatActivity() {
         binding.txtBrand.text = ""
         binding.txtBrand.visibility = View.GONE
 
-        // Foto anzeigen falls vorhanden
+        // Foto anzeigen falls vorhanden - bei OCR groß damit User die markierten Stellen sieht
         if (!photoPath.isNullOrBlank() && File(photoPath).exists()) {
             try {
                 val bitmap = BitmapFactory.decodeFile(photoPath)
                 binding.productImage.setImageBitmap(bitmap)
                 binding.productImage.visibility = View.VISIBLE
+                // Größeres Format für OCR (statt der kleinen 120x120 Kachel)
+                val params = binding.productImage.layoutParams
+                params.width = androidx.constraintlayout.widget.ConstraintLayout.LayoutParams.MATCH_PARENT
+                params.height = androidx.constraintlayout.widget.ConstraintLayout.LayoutParams.WRAP_CONTENT
+                binding.productImage.layoutParams = params
+                binding.productImage.adjustViewBounds = true
             } catch (e: Exception) {
                 binding.productImage.visibility = View.GONE
             }

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="halal_primary">#2EB872</color>
+    <color name="halal_secondary">#4DA3FF</color>
+    <color name="halal_haram">#E54B4B</color>
+    <color name="halal_mushbooh">#E6A23C</color>
+</resources>

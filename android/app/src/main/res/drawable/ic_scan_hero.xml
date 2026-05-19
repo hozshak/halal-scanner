@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="180dp"
+    android:height="180dp"
+    android:viewportWidth="180"
+    android:viewportHeight="180"
+    android:tint="?colorPrimary">
+
+    <!-- Halbmond + Stern für Halal-Branding -->
+    <path
+        android:fillColor="?colorPrimary"
+        android:pathData="M90,30 a60,60 0 1,0 30,112 a48,48 0 1,1 0,-104 a60,60 0 0,0 -30,-8 z"
+        android:fillAlpha="0.18" />
+
+    <!-- Barcode-Streifen in der Mitte -->
+    <path
+        android:fillColor="?colorPrimary"
+        android:pathData="M60,75 h4 v30 h-4 zM68,75 h2 v30 h-2 zM74,75 h6 v30 h-6 zM84,75 h2 v30 h-2 zM90,75 h4 v30 h-4 zM98,75 h2 v30 h-2 zM104,75 h6 v30 h-6 zM114,75 h2 v30 h-2 zM120,75 h4 v30 h-4 z" />
+
+    <!-- Häkchen für Bestätigung -->
+    <path
+        android:fillColor="?colorPrimary"
+        android:strokeColor="?colorPrimary"
+        android:strokeWidth="6"
+        android:pathData="M75,120 l10,12 l25,-28" />
+</vector>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Halal Scanner</string>
+
+    <string name="main_subtitle">Barcode scannen und prüfen ob ein Produkt halal ist.</string>
+    <string name="main_scan_button">Barcode scannen</string>
+    <string name="main_history_button">Verlauf</string>
+    <string name="main_info_button">Über die App / Hinweise</string>
+    <string name="main_disclaimer">Diese App ist informativ. Sie ersetzt keine offizielle Halal-Zertifizierung. Im Zweifel Hersteller kontaktieren.</string>
+
+    <string name="permission_denied_title">Kamera benötigt</string>
+    <string name="permission_denied_msg">Zum Scannen von Barcodes muss die App auf die Kamera zugreifen können. Bitte in den App-Einstellungen erlauben.</string>
+
+    <string name="info_title">Über Halal Scanner</string>
+    <string name="info_msg">Diese App liest Produkt-Barcodes ein und gleicht die Zutatenliste mit einer Datenbank bekannter haram- (Schwein, Alkohol, Karmin/Schellack, …) und mushbooh- (zweifelhaft: Gelatine, Mono-/Diglyceride, …) Zutaten ab.\n\nProdukt-Daten von OpenFoodFacts (open data). Falls ein Produkt nicht in der DB ist, ist keine Analyse möglich.\n\nWICHTIG: Diese Bewertung ist KEINE religiöse Fatwa. Sie ist informativ und basiert auf weit verbreitetem Konsens. Im Zweifel den Hersteller fragen oder ein offiziell halal-zertifiziertes Produkt wählen.</string>
+
+    <string name="scanner_hint">Barcode in den Rahmen halten</string>
+    <string name="scanner_cancel">Abbrechen</string>
+
+    <string name="result_barcode_label">Barcode: %1$s</string>
+    <string name="result_no_name">(Unbekanntes Produkt)</string>
+    <string name="result_reasons_header">BEGRÜNDUNG</string>
+    <string name="result_ingredients_header">ZUTATEN (verdächtige Stellen markiert ⚠️)</string>
+    <string name="result_scan_again">Weiteres Produkt scannen</string>
+    <string name="result_back">Zurück</string>
+    <string name="result_not_found">Produkt mit Barcode %1$s nicht in OpenFoodFacts-Datenbank gefunden.\n\nMöglich: das Produkt ist noch nicht erfasst. Du kannst es selbst auf https://world.openfoodfacts.org eintragen.</string>
+    <string name="result_error">Fehler beim Laden: %1$s</string>
+
+    <string name="status_halal">HALAL</string>
+    <string name="status_likely_halal">vermutlich halal</string>
+    <string name="status_mushbooh">FRAGLICH</string>
+    <string name="status_haram">HARAM</string>
+    <string name="status_unknown">unbekannt</string>
+
+    <string name="history_title">Scan-Verlauf</string>
+    <string name="history_empty">Noch keine Produkte gescannt.</string>
+    <string name="history_clear">Löschen</string>
+    <string name="history_clear_confirm">Verlauf vollständig löschen?</string>
+</resources>

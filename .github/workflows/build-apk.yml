@@ -1,0 +1,62 @@
+name: Build APK
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+
+    defaults:
+      run:
+        working-directory: android
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+          cache: gradle
+
+      - uses: actions/cache@v4
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: ${{ runner.os }}-gradle-${{ hashFiles('android/**/*.gradle*', 'android/gradle/wrapper/gradle-wrapper.properties') }}
+          restore-keys: ${{ runner.os }}-gradle-
+
+      - name: Make gradlew executable
+        run: chmod +x ./gradlew || true
+
+      - name: Generate Gradle Wrapper if missing
+        run: |
+          if [ ! -f gradlew ]; then
+            gradle wrapper --gradle-version 8.10.2 --distribution-type bin
+          fi
+
+      - run: ./gradlew :app:assembleDebug --no-daemon --stacktrace
+      - run: ./gradlew :app:assembleRelease --no-daemon --stacktrace
+
+      - name: Upload Debug APK
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: halal-scanner-debug
+          path: android/app/build/outputs/apk/debug/*.apk
+          retention-days: 14
+          if-no-files-found: warn
+
+      - name: Upload Release APK
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: halal-scanner-release
+          path: android/app/build/outputs/apk/release/*.apk
+          retention-days: 30
+          if-no-files-found: warn

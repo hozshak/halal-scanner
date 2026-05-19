@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <!-- Barcode-Streifen -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M30,42 h4 v24 h-4 zM38,42 h2 v24 h-2 zM44,42 h6 v24 h-6 zM54,42 h2 v24 h-2 zM60,42 h4 v24 h-4 zM68,42 h2 v24 h-2 zM74,42 h6 v24 h-6 z" />
+    <!-- Häkchen -->
+    <path
+        android:fillColor="#2EB872"
+        android:pathData="M44,72 l8,10 l20,-22 l-4,-4 l-16,18 l-4,-6 z" />
+</vector>

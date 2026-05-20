@@ -125,6 +125,18 @@
     <string name="front_share_chooser_title">افتح البحث بالصورة عبر…</string>
     <string name="result_search_google">ابحث عن الباركود في المتصفح</string>
 
+    <string name="ocr_step1_capture">📷  الخطوة 1: التقاط الصورة</string>
+    <string name="ocr_step2_review">تم التقاط الصورة</string>
+    <string name="ocr_step2_review_hint">تأكد أن المكونات واضحة، ثم اضغط على تحليل.</string>
+    <string name="ocr_step2_analyze">✓  الخطوة 2: تحليل المكونات</string>
+    <string name="ocr_step2_retake">صورة أخرى</string>
+    <string name="ocr_analyzing">جاري تحليل المكونات…</string>
+
+    <string name="front_step1_capture">📷  الخطوة 1: التقاط الصورة</string>
+    <string name="front_step2_review">تم التقاط الصورة</string>
+    <string name="front_step2_search">🔍  الخطوة 2: ابحث عن المنتج</string>
+    <string name="front_searching_progress">جاري البحث عن المنتج…</string>
+
     <string name="more_credit">طوّر من قبل</string>
     <string name="more_instagram">@en0o0n على إنستغرام</string>
 

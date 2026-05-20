@@ -11,8 +11,8 @@ android {
         applicationId = "com.halal.scanner"
         minSdk = 24
         targetSdk = 34
-        versionCode = 8
-        versionName = "1.7.0"
+        versionCode = 9
+        versionName = "1.8.0"
     }
 
     buildFeatures {
@@ -90,4 +90,7 @@ dependencies {
 
     // Image loading
     implementation("io.coil-kt:coil:2.7.0")
+
+    // EXIF für korrekte Foto-Rotation
+    implementation("androidx.exifinterface:exifinterface:1.3.7")
 }

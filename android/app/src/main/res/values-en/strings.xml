@@ -125,6 +125,18 @@
     <string name="front_share_chooser_title">Open image search with…</string>
     <string name="result_search_google">Search barcode on the web</string>
 
+    <string name="ocr_step1_capture">📷  Step 1: Take photo</string>
+    <string name="ocr_step2_review">Photo captured</string>
+    <string name="ocr_step2_review_hint">Verify the ingredients are readable, then analyze.</string>
+    <string name="ocr_step2_analyze">✓  Step 2: Analyze ingredients</string>
+    <string name="ocr_step2_retake">Take another photo</string>
+    <string name="ocr_analyzing">Analyzing ingredients…</string>
+
+    <string name="front_step1_capture">📷  Step 1: Take photo</string>
+    <string name="front_step2_review">Photo captured</string>
+    <string name="front_step2_search">🔍  Step 2: Search product</string>
+    <string name="front_searching_progress">Searching product…</string>
+
     <string name="more_credit">Developed by</string>
     <string name="more_instagram">@en0o0n on Instagram</string>
 

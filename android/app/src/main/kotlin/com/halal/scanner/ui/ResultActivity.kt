@@ -19,7 +19,9 @@ import com.halal.scanner.data.Nutriments
 import com.halal.scanner.data.OpenFoodFactsClient
 import com.halal.scanner.data.Product
 import com.halal.scanner.databinding.ActivityResultBinding
+import com.halal.scanner.db.BookmarkStore
 import com.halal.scanner.db.HistoryStore
+import com.halal.scanner.db.ScanStatsStore
 import com.halal.scanner.halal.HalalAnalysis
 import com.halal.scanner.halal.HalalStatus
 import com.halal.scanner.halal.IngredientDatabase
@@ -30,6 +32,8 @@ class ResultActivity : AppCompatActivity() {
     private lateinit var binding: ActivityResultBinding
     private val client = OpenFoodFactsClient()
     private val history by lazy { HistoryStore(this) }
+    private val bookmarks by lazy { BookmarkStore(this) }
+    private val stats by lazy { ScanStatsStore(this) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -71,6 +75,7 @@ class ResultActivity : AppCompatActivity() {
     // -------------------------------------------------------------------------
     private fun showOcrResult(text: String, photoPath: String?) {
         val analysis = IngredientDatabase.analyze(text, emptyList())
+        stats.recordScan(analysis.status)
 
         binding.progressBar.visibility = View.GONE
         binding.contentGroup.visibility = View.VISIBLE
@@ -124,6 +129,7 @@ class ResultActivity : AppCompatActivity() {
             labels = product.labels
         )
         history.add(product, analysis.status)
+        stats.recordScan(analysis.status)
 
         binding.progressBar.visibility = View.GONE
         binding.contentGroup.visibility = View.VISIBLE

@@ -54,6 +54,53 @@
     <string name="nav_scan">مسح</string>
     <string name="nav_history">السجل</string>
     <string name="nav_more">المزيد</string>
+    <string name="nav_home">الرئيسية</string>
+    <string name="nav_settings">الإعدادات</string>
+    <string name="nav_watchlist">قائمة المراقبة</string>
+    <string name="nav_compare">مقارنة</string>
+
+    <!-- قائمة المراقبة -->
+    <string name="watchlist_empty_title">لا توجد عناصر في قائمة المراقبة</string>
+    <string name="watchlist_empty_desc">أضف المنتجات إلى قائمة المراقبة لتتبع التغييرات والحصول على إشعارات عند تحديث المكونات.</string>
+    <string name="watchlist_feature_notify">احصل على إشعارات عند تغيير المنتج</string>
+    <string name="watchlist_feature_track">تتبع تحديثات المكونات</string>
+    <string name="watchlist_feature_status">ابقَ على اطلاع بحالة الحلال</string>
+    <string name="watchlist_hint">امسح منتجاً واضغط على أيقونة الإشارة المرجعية لإضافته إلى قائمة المراقبة.</string>
+    <string name="watchlist_added">تمت الإضافة إلى قائمة المراقبة</string>
+    <string name="watchlist_removed">تمت الإزالة من قائمة المراقبة</string>
+
+    <!-- المقارنة -->
+    <string name="compare_title">قارن المنتجات</string>
+    <string name="compare_of_2">من 2</string>
+    <string name="compare_select_title">اختر المنتجات للمقارنة</string>
+    <string name="compare_select_desc">اختر منتجين بالضبط لرؤية المقارنة الغذائية والحلال التفصيلية.</string>
+    <string name="compare_pick_from_watchlist">اختر من قائمة المراقبة</string>
+    <string name="compare_empty_hint">قائمة المراقبة فارغة. أضف المنتجات أولاً عبر الإشارة المرجعية، ثم يمكنك مقارنتها هنا.</string>
+    <string name="compare_start">بدء المقارنة</string>
+    <string name="compare_max_2">يمكنك مقارنة منتجين فقط</string>
+    <string name="compare_coming_soon">المقارنة قادمة في التحديث القادم</string>
+
+    <!-- الإعدادات -->
+    <string name="settings_profile_subtitle">طعام حلال بوعي</string>
+    <string name="settings_progress_header">تقدمك</string>
+    <string name="settings_stat_version">الإصدار</string>
+    <string name="settings_stat_halal">منتجات حلال</string>
+    <string name="settings_stat_total">إجمالي المسح</string>
+
+    <string name="settings_preferences_header">التفضيلات</string>
+    <string name="settings_allergens_title">إعداد مسببات الحساسية</string>
+    <string name="settings_allergens_desc">اختر المواد المسببة للحساسية للتنبيه عنها</string>
+    <string name="settings_allergens_coming_soon">إعداد مسببات الحساسية في التحديث القادم</string>
+
+    <string name="settings_support_header">الدعم</string>
+    <string name="settings_bug_title">الإبلاغ عن خطأ</string>
+    <string name="settings_bug_desc">أبلغ عن مشاكل أو أخطاء على GitHub</string>
+    <string name="settings_feedback_title">إعطاء ملاحظات</string>
+    <string name="settings_feedback_desc">شارك تجربتك</string>
+
+    <string name="settings_app_header">عن التطبيق</string>
+    <string name="settings_about_version_line">الإصدار %1$s</string>
+    <string name="settings_about_dev_line">طوّر من قبل ‎@en0o0n</string>
 
     <string name="ocr_capturing">جاري التحليل…</string>
     <string name="ocr_no_text">لم يتم رصد أي نص. الصورة غير واضحة أو النص صغير جداً.</string>

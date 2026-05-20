@@ -1,7 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- Statuses -->
     <color name="halal_primary">#2EB872</color>
     <color name="halal_secondary">#4DA3FF</color>
     <color name="halal_haram">#E54B4B</color>
     <color name="halal_mushbooh">#E6A23C</color>
+
+    <!-- Dunkles Theme - Hintergründe -->
+    <color name="dark_bg">#0B0B0F</color>
+    <color name="dark_surface">#16171C</color>
+    <color name="dark_surface_2">#1E2027</color>
+    <color name="dark_outline">#2A2C34</color>
+    <color name="dark_text_primary">#FFFFFF</color>
+    <color name="dark_text_secondary">#9CA3AF</color>
+
+    <!-- Akzente Bottom-Nav -->
+    <color name="nav_pill_bg">#1A1C22</color>
+    <color name="nav_active_blue">#3D7CFF</color>
+    <color name="nav_inactive">#B0B5BD</color>
 </resources>

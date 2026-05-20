@@ -54,6 +54,53 @@
     <string name="nav_scan">Scan</string>
     <string name="nav_history">History</string>
     <string name="nav_more">More</string>
+    <string name="nav_home">Home</string>
+    <string name="nav_settings">Settings</string>
+    <string name="nav_watchlist">Watchlist</string>
+    <string name="nav_compare">Compare</string>
+
+    <!-- Watchlist -->
+    <string name="watchlist_empty_title">No items in watchlist</string>
+    <string name="watchlist_empty_desc">Save products to your watchlist to track changes and get notified when ingredients are updated.</string>
+    <string name="watchlist_feature_notify">Get notifications on product changes</string>
+    <string name="watchlist_feature_track">Track ingredient updates</string>
+    <string name="watchlist_feature_status">Stay updated on halal status</string>
+    <string name="watchlist_hint">Scan a product and tap the bookmark icon to add it to your watchlist.</string>
+    <string name="watchlist_added">Added to watchlist</string>
+    <string name="watchlist_removed">Removed from watchlist</string>
+
+    <!-- Compare -->
+    <string name="compare_title">Compare products</string>
+    <string name="compare_of_2">of 2</string>
+    <string name="compare_select_title">Select products to compare</string>
+    <string name="compare_select_desc">Pick exactly 2 products to see a detailed nutrition + halal side-by-side comparison.</string>
+    <string name="compare_pick_from_watchlist">Pick from your watchlist</string>
+    <string name="compare_empty_hint">Your watchlist is empty. Bookmark products first, then you can compare them here.</string>
+    <string name="compare_start">Start comparison</string>
+    <string name="compare_max_2">You can only compare 2 products</string>
+    <string name="compare_coming_soon">Comparison view coming in next update</string>
+
+    <!-- Settings -->
+    <string name="settings_profile_subtitle">Mindful halal eating</string>
+    <string name="settings_progress_header">Your progress</string>
+    <string name="settings_stat_version">Version</string>
+    <string name="settings_stat_halal">Halal found</string>
+    <string name="settings_stat_total">Total scans</string>
+
+    <string name="settings_preferences_header">Preferences</string>
+    <string name="settings_allergens_title">Set up allergens</string>
+    <string name="settings_allergens_desc">Choose common allergens to highlight</string>
+    <string name="settings_allergens_coming_soon">Allergen filters coming in next update</string>
+
+    <string name="settings_support_header">Support</string>
+    <string name="settings_bug_title">Report a bug</string>
+    <string name="settings_bug_desc">Report issues or bugs on GitHub</string>
+    <string name="settings_feedback_title">Give feedback</string>
+    <string name="settings_feedback_desc">Share your experience</string>
+
+    <string name="settings_app_header">About this app</string>
+    <string name="settings_about_version_line">Version %1$s</string>
+    <string name="settings_about_dev_line">Developed by @en0o0n</string>
 
     <string name="ocr_capturing">Analyzing image…</string>
     <string name="ocr_no_text">No text detected. Image not sharp enough or text too small.</string>

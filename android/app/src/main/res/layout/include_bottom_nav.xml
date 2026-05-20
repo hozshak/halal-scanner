@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Custom Bottom-Navigation (Pill-Shape mit zentriertem Kamera-Button).
+  Replikat der Referenz-App. Jeder Tab ist ein LinearLayout mit Icon + Label;
+  der zentrale Scan-Button hat einen blauen Rundkasten-Hintergrund.
+
+  Sichtbarkeit der "active"-Markierung: das Layout, das den Tab aktiv markieren
+  möchte, setzt selbst die jeweilige TextView-Farbe + Icon-Tint zur Laufzeit.
+  Die View-IDs sind stabil:
+    - navSettings / navSettingsLabel
+    - navWatchlist / navWatchlistLabel
+    - navCompare / navCompareLabel
+    - navScan / navScanLabel
+    - navHome / navHomeLabel
+
+  IDs werden in BottomNavBinder.kt gehighlightet.
+-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:layout_marginHorizontal="12dp"
+    android:layout_marginBottom="14dp"
+    android:background="@drawable/nav_pill_bg"
+    android:paddingVertical="10dp"
+    android:paddingHorizontal="6dp"
+    android:weightSum="5">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="5">
+
+        <!-- Tab 1: Settings -->
+        <LinearLayout
+            android:id="@+id/navSettings"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:padding="6dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:clickable="true"
+            android:focusable="true">
+            <ImageView
+                android:id="@+id/navSettingsIcon"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/ic_settings"
+                android:contentDescription="@null"
+                app:tint="@color/nav_inactive" />
+            <TextView
+                android:id="@+id/navSettingsLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:text="@string/nav_settings"
+                android:textSize="11sp"
+                android:textColor="@color/nav_inactive" />
+        </LinearLayout>
+
+        <!-- Tab 2: Watchlist -->
+        <LinearLayout
+            android:id="@+id/navWatchlist"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:padding="6dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:clickable="true"
+            android:focusable="true">
+            <ImageView
+                android:id="@+id/navWatchlistIcon"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/ic_bookmark_outline"
+                android:contentDescription="@null"
+                app:tint="@color/nav_inactive" />
+            <TextView
+                android:id="@+id/navWatchlistLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:text="@string/nav_watchlist"
+                android:textSize="11sp"
+                android:textColor="@color/nav_inactive" />
+        </LinearLayout>
+
+        <!-- Tab 3: Compare -->
+        <LinearLayout
+            android:id="@+id/navCompare"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:padding="6dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:clickable="true"
+            android:focusable="true">
+            <ImageView
+                android:id="@+id/navCompareIcon"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/ic_compare"
+                android:contentDescription="@null"
+                app:tint="@color/nav_inactive" />
+            <TextView
+                android:id="@+id/navCompareLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:text="@string/nav_compare"
+                android:textSize="11sp"
+                android:textColor="@color/nav_inactive" />
+        </LinearLayout>
+
+        <!-- Tab 4 (Mitte, größer): Scan -->
+        <LinearLayout
+            android:id="@+id/navScan"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:padding="2dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:clickable="true"
+            android:focusable="true">
+            <FrameLayout
+                android:id="@+id/navScanBox"
+                android:layout_width="50dp"
+                android:layout_height="36dp"
+                android:background="@drawable/nav_center_bg">
+                <ImageView
+                    android:id="@+id/navScanIcon"
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_camera_nav"
+                    android:contentDescription="@null"
+                    app:tint="#FFFFFF" />
+            </FrameLayout>
+            <TextView
+                android:id="@+id/navScanLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="3dp"
+                android:text="@string/nav_scan"
+                android:textSize="11sp"
+                android:textColor="@color/nav_active_blue"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <!-- Tab 5: Home -->
+        <LinearLayout
+            android:id="@+id/navHome"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:padding="6dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:clickable="true"
+            android:focusable="true">
+            <ImageView
+                android:id="@+id/navHomeIcon"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/ic_home"
+                android:contentDescription="@null"
+                app:tint="@color/nav_inactive" />
+            <TextView
+                android:id="@+id/navHomeLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:text="@string/nav_home"
+                android:textSize="11sp"
+                android:textColor="@color/nav_inactive" />
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

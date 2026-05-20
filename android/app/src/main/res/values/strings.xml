@@ -54,6 +54,53 @@
     <string name="nav_scan">Scannen</string>
     <string name="nav_history">Verlauf</string>
     <string name="nav_more">Mehr</string>
+    <string name="nav_home">Start</string>
+    <string name="nav_settings">Einstellungen</string>
+    <string name="nav_watchlist">Watchlist</string>
+    <string name="nav_compare">Vergleich</string>
+
+    <!-- Watchlist -->
+    <string name="watchlist_empty_title">Keine Einträge in der Watchlist</string>
+    <string name="watchlist_empty_desc">Speichere Produkte in der Watchlist um Änderungen zu verfolgen und benachrichtigt zu werden wenn sich Zutaten ändern.</string>
+    <string name="watchlist_feature_notify">Benachrichtigung bei Produkt-Änderungen</string>
+    <string name="watchlist_feature_track">Zutaten-Aktualisierungen mitverfolgen</string>
+    <string name="watchlist_feature_status">Halal-Status im Blick behalten</string>
+    <string name="watchlist_hint">Scanne ein Produkt und tippe auf das Lesezeichen, um es zur Watchlist hinzuzufügen.</string>
+    <string name="watchlist_added">Zur Watchlist hinzugefügt</string>
+    <string name="watchlist_removed">Aus Watchlist entfernt</string>
+
+    <!-- Compare -->
+    <string name="compare_title">Produkte vergleichen</string>
+    <string name="compare_of_2">von 2</string>
+    <string name="compare_select_title">Produkte zum Vergleich wählen</string>
+    <string name="compare_select_desc">Wähle genau 2 Produkte um eine ausführliche Nährwert- und Halal-Gegenüberstellung zu sehen.</string>
+    <string name="compare_pick_from_watchlist">Aus der Watchlist auswählen</string>
+    <string name="compare_empty_hint">Deine Watchlist ist leer. Füge zuerst Produkte über das Lesezeichen hinzu, dann kannst du sie hier vergleichen.</string>
+    <string name="compare_start">Vergleich starten</string>
+    <string name="compare_max_2">Maximal 2 Produkte können verglichen werden</string>
+    <string name="compare_coming_soon">Vergleich folgt im nächsten Update</string>
+
+    <!-- Settings -->
+    <string name="settings_profile_subtitle">Bewusst halal essen</string>
+    <string name="settings_progress_header">Dein Fortschritt</string>
+    <string name="settings_stat_version">Version</string>
+    <string name="settings_stat_halal">Halal gefunden</string>
+    <string name="settings_stat_total">Gesamte Scans</string>
+
+    <string name="settings_preferences_header">Einstellungen</string>
+    <string name="settings_allergens_title">Allergene festlegen</string>
+    <string name="settings_allergens_desc">Häufige Allergene zur Markierung wählen</string>
+    <string name="settings_allergens_coming_soon">Allergen-Filter folgen im nächsten Update</string>
+
+    <string name="settings_support_header">Unterstützung</string>
+    <string name="settings_bug_title">Fehler melden</string>
+    <string name="settings_bug_desc">Probleme oder Bugs auf GitHub melden</string>
+    <string name="settings_feedback_title">Feedback geben</string>
+    <string name="settings_feedback_desc">Deine Erfahrung teilen</string>
+
+    <string name="settings_app_header">Über die App</string>
+    <string name="settings_about_version_line">Version %1$s</string>
+    <string name="settings_about_dev_line">Entwickelt von @en0o0n</string>
 
     <string name="ocr_capturing">Bild wird analysiert…</string>
     <string name="ocr_no_text">Kein Text erkannt. Bild war nicht scharf genug oder Text zu klein.</string>

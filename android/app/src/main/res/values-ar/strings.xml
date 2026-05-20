@@ -102,6 +102,48 @@
     <string name="settings_about_version_line">الإصدار %1$s</string>
     <string name="settings_about_dev_line">طوّر من قبل ‎@en0o0n</string>
 
+    <!-- النتيجة البيئية -->
+    <string name="eco_score_header">النتيجة البيئية</string>
+    <string name="eco_score_subtitle_good">تأثير بيئي منخفض. خيار مسؤول تجاه كوكبنا.</string>
+    <string name="eco_score_subtitle_moderate">تأثير بيئي متوسط. توجد بدائل أفضل.</string>
+    <string name="eco_score_subtitle_poor">تأثير بيئي مرتفع. تناوله باعتدال.</string>
+    <string name="eco_score_subtitle_unknown">البيانات غير متوفرة</string>
+
+    <!-- نوفا -->
+    <string name="nova_score_header">نتيجة نوفا</string>
+    <string name="nova_subtitle_1">أطعمة غير معالجة أو معالجة بشكل بسيط.</string>
+    <string name="nova_subtitle_2">مكونات طهي معالجة (زيوت، ملح، سكر).</string>
+    <string name="nova_subtitle_3">أطعمة معالجة (معلبات، جبن، خبز).</string>
+    <string name="nova_subtitle_4">أطعمة عالية المعالجة - تناولها باعتدال.</string>
+    <string name="nova_subtitle_unknown">درجة المعالجة غير معروفة</string>
+
+    <!-- مسببات الحساسية -->
+    <string name="allergens_header">مسببات الحساسية</string>
+    <string name="allergens_intro">اختر المواد المسببة للحساسية لينبهك التطبيق عند رصدها في المنتجات الممسوحة.</string>
+    <string name="allergens_save">حفظ</string>
+    <string name="allergen_gluten">غلوتين</string>
+    <string name="allergen_milk">حليب</string>
+    <string name="allergen_eggs">بيض</string>
+    <string name="allergen_soybeans">صويا</string>
+    <string name="allergen_nuts">مكسرات</string>
+    <string name="allergen_peanuts">فول سوداني</string>
+    <string name="allergen_fish">سمك</string>
+    <string name="allergen_crustaceans">قشريات</string>
+    <string name="allergen_molluscs">رخويات</string>
+    <string name="allergen_celery">كرفس</string>
+    <string name="allergen_mustard">خردل</string>
+    <string name="allergen_sesame">سمسم</string>
+    <string name="allergen_sulphites">كبريتيت/SO₂</string>
+    <string name="allergen_lupin">ترمس</string>
+
+    <!-- الفئات -->
+    <string name="categories_header">الفئات</string>
+
+    <!-- المشاركة / قائمة المراقبة -->
+    <string name="share_status_line">حالة الحلال: %1$s</string>
+    <string name="share_chooser_title">مشاركة عبر…</string>
+    <string name="watchlist_needs_product">الإشارة المرجعية متاحة فقط للمنتجات ذات الباركود</string>
+
     <string name="ocr_capturing">جاري التحليل…</string>
     <string name="ocr_no_text">لم يتم رصد أي نص. الصورة غير واضحة أو النص صغير جداً.</string>
     <string name="ocr_capture_button">التقط صورة + حلل المكونات</string>

@@ -66,6 +66,11 @@
             android:exported="false"
             android:screenOrientation="portrait" />
 
+        <activity
+            android:name=".ui.AllergensActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+
         <!-- FileProvider zum Teilen des aufgenommenen Fotos mit Google Lens etc. -->
         <provider
             android:name="androidx.core.content.FileProvider"

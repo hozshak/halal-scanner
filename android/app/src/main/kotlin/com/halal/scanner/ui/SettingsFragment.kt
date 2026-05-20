@@ -48,9 +48,7 @@ class SettingsFragment : Fragment() {
 
         binding.rowLanguage.setOnClickListener { showLanguageDialog() }
         binding.rowAllergens.setOnClickListener {
-            android.widget.Toast.makeText(ctx,
-                R.string.settings_allergens_coming_soon,
-                android.widget.Toast.LENGTH_SHORT).show()
+            startActivity(Intent(ctx, AllergensActivity::class.java))
         }
         binding.rowReportBug.setOnClickListener {
             openUrl("https://github.com/hozshak/halal-scanner/issues/new")

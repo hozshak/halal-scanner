@@ -19,12 +19,14 @@ import com.halal.scanner.data.Nutriments
 import com.halal.scanner.data.OpenFoodFactsClient
 import com.halal.scanner.data.Product
 import com.halal.scanner.databinding.ActivityResultBinding
+import com.halal.scanner.db.AllergenPrefs
 import com.halal.scanner.db.BookmarkStore
 import com.halal.scanner.db.HistoryStore
 import com.halal.scanner.db.ScanStatsStore
 import com.halal.scanner.halal.HalalAnalysis
 import com.halal.scanner.halal.HalalStatus
 import com.halal.scanner.halal.IngredientDatabase
+import com.google.android.material.chip.Chip
 import kotlinx.coroutines.launch
 import java.util.Locale
 
@@ -34,6 +36,11 @@ class ResultActivity : AppCompatActivity() {
     private val history by lazy { HistoryStore(this) }
     private val bookmarks by lazy { BookmarkStore(this) }
     private val stats by lazy { ScanStatsStore(this) }
+
+    /** Aktuell angezeigtes Produkt (null beim OCR-Pfad). */
+    private var currentProduct: Product? = null
+    /** Aktuelle Halal-Analyse (für Share-Text). */
+    private var currentAnalysis: HalalAnalysis? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,6 +52,17 @@ class ResultActivity : AppCompatActivity() {
             finish()
         }
         binding.btnBack.setOnClickListener { finish() }
+
+        // Top-Action-Bar
+        binding.btnTopBack.setOnClickListener { finish() }
+        binding.btnTopShare.setOnClickListener { shareCurrentProduct() }
+        binding.btnTopBookmark.setOnClickListener { toggleBookmark() }
+        binding.btnTopFlag.setOnClickListener {
+            try {
+                startActivity(Intent(Intent.ACTION_VIEW,
+                    android.net.Uri.parse("https://github.com/hozshak/halal-scanner/issues/new?title=Report:+${currentProduct?.barcode.orEmpty()}")))
+            } catch (_: Exception) {}
+        }
 
         val barcode = intent.getStringExtra(EXTRA_BARCODE)
         val ocrText = intent.getStringExtra(EXTRA_OCR_TEXT)
@@ -89,6 +107,12 @@ class ResultActivity : AppCompatActivity() {
         binding.infoCardsRow.visibility = View.GONE
         binding.nutritionSection.visibility = View.GONE
         binding.manufacturerSection.visibility = View.GONE
+        binding.ecoScoreCard.visibility = View.GONE
+        binding.novaScoreCard.visibility = View.GONE
+        binding.allergensSection.visibility = View.GONE
+        binding.categoriesSection.visibility = View.GONE
+        // Bookmark im OCR-Pfad deaktiviert (es gibt kein Produkt zum Bookmarken)
+        binding.btnTopBookmark.alpha = 0.4f
 
         // OCR-Foto in dedizierter ImageView anzeigen
         if (!photoPath.isNullOrBlank() && File(photoPath).exists()) {
@@ -166,7 +190,234 @@ class ResultActivity : AppCompatActivity() {
         // Nährwerte + Hersteller + Pros/Cons
         renderNutrition(product.nutriments)
         renderManufacturer(product.manufacturer)
+        renderEcoScore(product)
+        renderNovaScore(product)
+        renderAllergens(product)
+        renderCategories(product)
         renderProsCons(analysis, product.nutriments, product.novaGroup)
+
+        // Top-Action-Bar Status
+        currentProduct = product
+        currentAnalysis = analysis
+        updateBookmarkIcon()
+    }
+
+    // -------------------------------------------------------------------------
+    // Bookmark + Share Top-Bar-Actions
+    // -------------------------------------------------------------------------
+    private fun toggleBookmark() {
+        val p = currentProduct ?: run {
+            android.widget.Toast.makeText(this, R.string.watchlist_needs_product, android.widget.Toast.LENGTH_SHORT).show()
+            return
+        }
+        val nowBookmarked = bookmarks.toggle(p, currentAnalysis?.status ?: HalalStatus.UNKNOWN)
+        updateBookmarkIcon()
+        android.widget.Toast.makeText(
+            this,
+            if (nowBookmarked) R.string.watchlist_added else R.string.watchlist_removed,
+            android.widget.Toast.LENGTH_SHORT,
+        ).show()
+    }
+
+    private fun updateBookmarkIcon() {
+        val p = currentProduct
+        if (p == null) {
+            binding.btnTopBookmark.setImageResource(R.drawable.ic_bookmark_outline)
+            return
+        }
+        val isMarked = bookmarks.isBookmarked(p.barcode)
+        binding.btnTopBookmark.setImageResource(
+            if (isMarked) R.drawable.ic_bookmark_filled else R.drawable.ic_bookmark_outline
+        )
+    }
+
+    private fun shareCurrentProduct() {
+        val p = currentProduct ?: return
+        val statusLabel = currentAnalysis?.let { getString(statusLabelRes(it.status)) } ?: "?"
+        val text = buildString {
+            append(p.name ?: getString(R.string.result_no_name))
+            p.brand?.let { append(" – ").append(it) }
+            append("\n\n")
+            append(getString(R.string.share_status_line, statusLabel))
+            append("\n")
+            append("https://world.openfoodfacts.org/product/").append(p.barcode)
+        }
+        val send = Intent(Intent.ACTION_SEND).apply {
+            type = "text/plain"
+            putExtra(Intent.EXTRA_TEXT, text)
+        }
+        try {
+            startActivity(Intent.createChooser(send, getString(R.string.share_chooser_title)))
+        } catch (_: Exception) {}
+    }
+
+    private fun statusLabelRes(status: HalalStatus): Int = when (status) {
+        HalalStatus.HALAL        -> R.string.status_halal
+        HalalStatus.LIKELY_HALAL -> R.string.status_likely_halal
+        HalalStatus.MUSHBOOH     -> R.string.status_mushbooh
+        HalalStatus.HARAM        -> R.string.status_haram
+        HalalStatus.UNKNOWN      -> R.string.status_unknown
+    }
+
+    // -------------------------------------------------------------------------
+    // Eco-Score, Nova-Score, Categories, Allergens
+    // -------------------------------------------------------------------------
+    private fun renderEcoScore(product: Product) {
+        val grade = product.ecoScoreGrade
+        val value = product.ecoScoreValue
+        if (grade == null && value == null) {
+            binding.ecoScoreCard.visibility = View.GONE
+            return
+        }
+        binding.ecoScoreCard.visibility = View.VISIBLE
+
+        // Position: lieber den Numerik-Score nutzen, sonst Grade A→0.9, E→0.1
+        val position = when {
+            value != null -> value.coerceIn(0, 100) / 100f
+            grade != null -> when (grade) {
+                "a" -> 0.9f; "b" -> 0.7f; "c" -> 0.5f; "d" -> 0.3f; "e" -> 0.1f
+                else -> 0.5f
+            }
+            else -> 0.5f
+        }
+        binding.ecoScoreBar.position = position
+        binding.txtEcoScoreGrade.text = (grade ?: "").uppercase()
+
+        val subtitleRes = when (grade) {
+            "a", "b" -> R.string.eco_score_subtitle_good
+            "c"      -> R.string.eco_score_subtitle_moderate
+            "d", "e" -> R.string.eco_score_subtitle_poor
+            else     -> R.string.eco_score_subtitle_unknown
+        }
+        binding.txtEcoScoreSubtitle.text = getString(subtitleRes)
+    }
+
+    private fun renderNovaScore(product: Product) {
+        val nova = product.novaGroup
+        if (nova == null || nova !in 1..4) {
+            binding.novaScoreCard.visibility = View.GONE
+            return
+        }
+        binding.novaScoreCard.visibility = View.VISIBLE
+        binding.txtNovaGroup.text = nova.toString()
+
+        // Bei NOVA ist KLEIN = gut, GROSS = schlecht.
+        // Daher Position invertieren: 1→0.9, 2→0.7, 3→0.3, 4→0.1
+        binding.novaScoreBar.position = when (nova) {
+            1 -> 0.9f; 2 -> 0.7f; 3 -> 0.3f; 4 -> 0.1f
+            else -> 0.5f
+        }
+
+        // Farbiger Hintergrund der Nova-Group-Box
+        val bgRes = when (nova) {
+            1 -> R.drawable.circle_green
+            2 -> R.drawable.circle_yellow
+            3 -> R.drawable.circle_orange
+            4 -> R.drawable.circle_red
+            else -> R.drawable.bg_chip_dark
+        }
+        binding.novaGroupBox.setBackgroundResource(bgRes)
+
+        val subtitleRes = when (nova) {
+            1 -> R.string.nova_subtitle_1
+            2 -> R.string.nova_subtitle_2
+            3 -> R.string.nova_subtitle_3
+            4 -> R.string.nova_subtitle_4
+            else -> R.string.nova_subtitle_unknown
+        }
+        binding.txtNovaSubtitle.text = getString(subtitleRes)
+    }
+
+    /**
+     * Allergen-Chips: zeige alle Produkt-Allergene als Chips.
+     * Chips, die in den vom Nutzer ausgewählten Allergenen sind, werden rot
+     * hervorgehoben.
+     */
+    private fun renderAllergens(product: Product) {
+        binding.allergenChips.removeAllViews()
+        val raw = product.allergens
+        if (raw.isEmpty()) {
+            binding.allergensSection.visibility = View.GONE
+            return
+        }
+        binding.allergensSection.visibility = View.VISIBLE
+
+        val userAllergens = AllergenPrefs(this).selected()
+        for (tag in raw) {
+            val key = tag.substringAfter(':')           // "en:milk" -> "milk"
+            val label = humanizeAllergen(key)
+            val isUser = userAllergens.contains(key)
+            val chip = Chip(this).apply {
+                text = label
+                isClickable = false
+                isCheckable = false
+                if (isUser) {
+                    chipBackgroundColor = android.content.res.ColorStateList.valueOf(0xFFE54B4B.toInt())
+                    setTextColor(0xFFFFFFFF.toInt())
+                } else {
+                    chipBackgroundColor = android.content.res.ColorStateList.valueOf(0xFF1E2027.toInt())
+                    setTextColor(0xFFB0B5BD.toInt())
+                }
+            }
+            binding.allergenChips.addView(chip)
+        }
+    }
+
+    private fun humanizeAllergen(key: String): String {
+        val resId = when (key) {
+            "gluten"        -> R.string.allergen_gluten
+            "milk"          -> R.string.allergen_milk
+            "eggs"          -> R.string.allergen_eggs
+            "soybeans"      -> R.string.allergen_soybeans
+            "nuts"          -> R.string.allergen_nuts
+            "peanuts"       -> R.string.allergen_peanuts
+            "fish"          -> R.string.allergen_fish
+            "crustaceans"   -> R.string.allergen_crustaceans
+            "molluscs"      -> R.string.allergen_molluscs
+            "celery"        -> R.string.allergen_celery
+            "mustard"       -> R.string.allergen_mustard
+            "sesame-seeds"  -> R.string.allergen_sesame
+            "sulphur-dioxide-and-sulphites" -> R.string.allergen_sulphites
+            "lupin"         -> R.string.allergen_lupin
+            else            -> 0
+        }
+        return if (resId != 0) getString(resId) else key.replace('-', ' ').replaceFirstChar {
+            it.uppercase(Locale.getDefault())
+        }
+    }
+
+    private fun renderCategories(product: Product) {
+        binding.categoryChips.removeAllViews()
+        // Letzten 8 Kategorien (die spezifischeren) anzeigen
+        val cats = product.categories
+            .map { stripPrefix(it) }
+            .filter { it.isNotBlank() }
+            .takeLast(8)
+        if (cats.isEmpty()) {
+            binding.categoriesSection.visibility = View.GONE
+            return
+        }
+        binding.categoriesSection.visibility = View.VISIBLE
+        val palette = intArrayOf(
+            0xFF7B2C45.toInt(), // dunkelrot
+            0xFF1E4D2B.toInt(), // dunkelgrün
+            0xFF7C2F33.toInt(), // dunkelrot 2
+            0xFF8B5A2B.toInt(), // braun
+            0xFF1B4E8C.toInt(), // blau
+            0xFF255A5A.toInt(), // teal
+            0xFF55317F.toInt(), // purple
+            0xFF6B4226.toInt(), // saddle
+        )
+        cats.forEachIndexed { i, cat ->
+            val chip = Chip(this).apply {
+                text = titleCase(cat)
+                isClickable = false
+                isCheckable = false
+                chipBackgroundColor = android.content.res.ColorStateList.valueOf(palette[i % palette.size])
+                setTextColor(0xFFFFFFFF.toInt())
+            }
+            binding.categoryChips.addView(chip)
+        }
     }
 
     // -------------------------------------------------------------------------

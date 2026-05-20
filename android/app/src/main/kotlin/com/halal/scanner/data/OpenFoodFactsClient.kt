@@ -50,7 +50,8 @@ class OpenFoodFactsClient {
                 "?fields=code,product_name,product_name_de,product_name_en,brands," +
                 "image_front_url,image_url,ingredients_text,ingredients_text_de," +
                 "ingredients_text_en,labels_tags,countries_tags,nova_group,nutriscore_grade," +
-                "categories_tags,manufacturing_places,manufacturing_places_tags,nutriments"
+                "categories_tags,manufacturing_places,manufacturing_places_tags,nutriments," +
+                "ecoscore_grade,ecoscore_score,allergens_tags"
             val req = Request.Builder()
                 .url(url)
                 .header("User-Agent", "HalalScanner-Android/1.0")
@@ -109,6 +110,10 @@ class OpenFoodFactsClient {
                         manufacturer = p.optString("manufacturing_places").ifBlank { null }
                             ?: (p.optJSONArray("manufacturing_places_tags") ?: JSONArray()).toStringList().firstOrNull(),
                         nutriments = nutriments,
+                        ecoScoreGrade = p.optString("ecoscore_grade")
+                            .lowercase().takeIf { it in listOf("a","b","c","d","e") },
+                        ecoScoreValue = p.optInt("ecoscore_score", -1).takeIf { it in 0..100 },
+                        allergens = (p.optJSONArray("allergens_tags") ?: JSONArray()).toStringList(),
                     ),
                     source = label,
                 )

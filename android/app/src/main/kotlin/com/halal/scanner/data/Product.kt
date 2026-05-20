@@ -15,6 +15,12 @@ data class Product(
     val categories: List<String> = emptyList(),
     val manufacturer: String?  = null,
     val nutriments: Nutriments? = null,
+    /** Eco-Score-Buchstabe a..e (lowercase). */
+    val ecoScoreGrade: String? = null,
+    /** Eco-Score-Zahlenwert 0..100 (optional, von OFF). */
+    val ecoScoreValue: Int? = null,
+    /** Allergene aus OFF, normalisiert (z.B. "milk", "gluten", "soybeans"). */
+    val allergens: List<String> = emptyList(),
 )
 
 /** Nährwerte pro 100g. Werte = null heißt nicht erfasst. */

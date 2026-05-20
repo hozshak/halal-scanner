@@ -102,6 +102,48 @@
     <string name="settings_about_version_line">Version %1$s</string>
     <string name="settings_about_dev_line">Entwickelt von @en0o0n</string>
 
+    <!-- Eco-Score -->
+    <string name="eco_score_header">Öko-Score</string>
+    <string name="eco_score_subtitle_good">Geringe Umweltbelastung. Verantwortungsvolle Wahl für unseren Planeten.</string>
+    <string name="eco_score_subtitle_moderate">Mittlere Umweltbelastung. Es gibt bessere Alternativen.</string>
+    <string name="eco_score_subtitle_poor">Hohe Umweltbelastung. Gelegentlich genießen.</string>
+    <string name="eco_score_subtitle_unknown">Daten nicht verfügbar</string>
+
+    <!-- NOVA -->
+    <string name="nova_score_header">NOVA-Score</string>
+    <string name="nova_subtitle_1">Unverarbeitete oder minimal verarbeitete Lebensmittel.</string>
+    <string name="nova_subtitle_2">Verarbeitete kulinarische Zutaten (Öle, Salz, Zucker).</string>
+    <string name="nova_subtitle_3">Verarbeitete Lebensmittel (Konserven, Käse, Brot).</string>
+    <string name="nova_subtitle_4">Stark verarbeitete Lebensmittel - in Maßen genießen.</string>
+    <string name="nova_subtitle_unknown">Verarbeitungsgrad unbekannt</string>
+
+    <!-- Allergene -->
+    <string name="allergens_header">Allergene</string>
+    <string name="allergens_intro">Wähle Allergene aus, vor denen die App dich warnen soll. Bei einem Scan werden gefundene Allergene farbig markiert.</string>
+    <string name="allergens_save">Speichern</string>
+    <string name="allergen_gluten">Gluten</string>
+    <string name="allergen_milk">Milch</string>
+    <string name="allergen_eggs">Eier</string>
+    <string name="allergen_soybeans">Soja</string>
+    <string name="allergen_nuts">Schalenfrüchte</string>
+    <string name="allergen_peanuts">Erdnüsse</string>
+    <string name="allergen_fish">Fisch</string>
+    <string name="allergen_crustaceans">Krebstiere</string>
+    <string name="allergen_molluscs">Weichtiere</string>
+    <string name="allergen_celery">Sellerie</string>
+    <string name="allergen_mustard">Senf</string>
+    <string name="allergen_sesame">Sesam</string>
+    <string name="allergen_sulphites">Sulfit/SO₂</string>
+    <string name="allergen_lupin">Lupinen</string>
+
+    <!-- Kategorien -->
+    <string name="categories_header">Kategorien</string>
+
+    <!-- Share / Watchlist -->
+    <string name="share_status_line">Halal-Status: %1$s</string>
+    <string name="share_chooser_title">Teilen mit…</string>
+    <string name="watchlist_needs_product">Bookmark nur möglich für Produkte mit Barcode</string>
+
     <string name="ocr_capturing">Bild wird analysiert…</string>
     <string name="ocr_no_text">Kein Text erkannt. Bild war nicht scharf genug oder Text zu klein.</string>
     <string name="ocr_capture_button">Foto + Zutaten analysieren</string>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Multi-Color-Gradient für den Eco-/Nova-Score-Balken:
+  rot → orange → gelb → hellgrün → grün.
+  Wird als Hintergrund einer 8dp hohen View benutzt; ein FrameLayout-Overlay
+  legt die Indikator-Kugel an die richtige X-Position.
+-->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <corners android:radius="6dp" />
+    <gradient
+        android:type="linear"
+        android:angle="0"
+        android:startColor="#E54B4B"
+        android:centerColor="#E6C133"
+        android:endColor="#2EB872"
+        android:useLevel="false" />
+</shape>

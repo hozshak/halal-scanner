@@ -86,8 +86,17 @@ class FrontScannerActivity : AppCompatActivity() {
         val options = ImageCapture.OutputFileOptions.Builder(photoFile).build()
         ic.takePicture(options, ContextCompat.getMainExecutor(this), object : ImageCapture.OnImageSavedCallback {
             override fun onImageSaved(output: ImageCapture.OutputFileResults) {
-                capturedFile = photoFile
-                showPreview(photoFile)
+                lifecycleScope.launch {
+                    val processed = withContext(Dispatchers.IO) {
+                        val bmp = PhotoUtils.decodeRotated(photoFile.absolutePath)
+                            ?: return@withContext photoFile
+                        PhotoUtils.saveAsJpeg(bmp, photoFile)
+                        bmp.recycle()
+                        photoFile
+                    }
+                    capturedFile = processed
+                    showPreview(processed)
+                }
             }
             override fun onError(exception: ImageCaptureException) {
                 Log.e("FrontScanner", "capture failed", exception)
@@ -98,8 +107,7 @@ class FrontScannerActivity : AppCompatActivity() {
     }
 
     private fun showPreview(file: File) {
-        val bmp = PhotoUtils.decodeRotated(file.absolutePath)
-        binding.imgPreview.setImageBitmap(bmp)
+        binding.imgPreview.load(file)
         binding.resultPanel.visibility = View.VISIBLE
         binding.btnCapture.visibility = View.GONE
         binding.resultsContainer.removeAllViews()
@@ -209,12 +217,31 @@ class FrontScannerActivity : AppCompatActivity() {
         val file = capturedFile ?: return
         try {
             val uri = FileProvider.getUriForFile(this, "$packageName.fileprovider", file)
-            val intent = Intent(Intent.ACTION_SEND).apply {
+            // Versuche Google-App direkt (Google Lens) ohne Chooser
+            val googleApps = listOf(
+                "com.google.android.googlequicksearchbox",  // Google-App / Lens
+                "com.google.ar.lens",                       // Lens-App
+                "com.google.android.apps.photos",           // Fotos-App (kann Lens)
+            )
+            for (pkg in googleApps) {
+                val intent = Intent(Intent.ACTION_SEND).apply {
+                    type = "image/jpeg"
+                    putExtra(Intent.EXTRA_STREAM, uri)
+                    addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+                    setPackage(pkg)
+                }
+                if (intent.resolveActivity(packageManager) != null) {
+                    startActivity(intent)
+                    return
+                }
+            }
+            // Fallback: Chooser, falls keine bekannte Google-App installiert
+            val fallback = Intent(Intent.ACTION_SEND).apply {
                 type = "image/jpeg"
                 putExtra(Intent.EXTRA_STREAM, uri)
                 addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
             }
-            startActivity(Intent.createChooser(intent, getString(R.string.front_share_chooser_title)))
+            startActivity(Intent.createChooser(fallback, getString(R.string.front_share_chooser_title)))
         } catch (e: Exception) {
             Log.e("FrontScanner", "share failed", e)
         }

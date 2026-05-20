@@ -181,10 +181,27 @@ class ResultActivity : AppCompatActivity() {
             HalalStatus.HARAM -> Triple(getString(R.string.status_haram), 0xFFE54B4B.toInt(), "✗")
             HalalStatus.UNKNOWN -> Triple(getString(R.string.status_unknown), 0xFF8A929E.toInt(), "?")
         }
-        binding.statusBadge.setBackgroundColor(color)
+
+        // Status-Card mit Gradient färben (heller -> dunkler in gleichem Farbton)
+        val darker = darken(color, 0.7f)
+        val gradient = android.graphics.drawable.GradientDrawable(
+            android.graphics.drawable.GradientDrawable.Orientation.TL_BR,
+            intArrayOf(color, darker)
+        ).apply {
+            cornerRadius = 24f * resources.displayMetrics.density
+        }
+        binding.statusCard.background = gradient
         binding.txtStatusLabel.text = "$emoji  $label"
+        binding.txtStatusSubtitle.text = getString(R.string.result_status_subtitle).uppercase()
 
         binding.txtReasons.text = analysis.reasonResIds.joinToString("\n\n") { "• " + getString(it) }
+    }
+
+    private fun darken(color: Int, factor: Float): Int {
+        val r = ((color shr 16 and 0xFF) * factor).toInt()
+        val g = ((color shr 8 and 0xFF) * factor).toInt()
+        val b = ((color and 0xFF) * factor).toInt()
+        return (0xFF shl 24) or (r shl 16) or (g shl 8) or b
     }
 
     private fun renderIngredients(product: Product, analysis: HalalAnalysis) {

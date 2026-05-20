@@ -18,6 +18,7 @@ import com.google.mlkit.vision.text.TextRecognition
 import com.google.mlkit.vision.text.latin.TextRecognizerOptions
 import com.halal.scanner.R
 import com.halal.scanner.databinding.ActivityTextScannerBinding
+import coil.load
 import com.halal.scanner.scanner.PhotoAnnotator
 import com.halal.scanner.scanner.PhotoUtils
 import kotlinx.coroutines.Dispatchers
@@ -76,8 +77,19 @@ class TextScannerActivity : AppCompatActivity() {
         val options = ImageCapture.OutputFileOptions.Builder(photoFile).build()
         ic.takePicture(options, ContextCompat.getMainExecutor(this), object : ImageCapture.OnImageSavedCallback {
             override fun onImageSaved(output: ImageCapture.OutputFileResults) {
-                capturedFile = photoFile
-                showPreview(photoFile)
+                // Direkt nach Speichern: downsample + rotieren + zurückschreiben
+                // damit alles weitere (Vorschau + ML Kit) klein und schnell ist
+                lifecycleScope.launch {
+                    val processed = withContext(Dispatchers.IO) {
+                        val bmp = PhotoUtils.decodeRotated(photoFile.absolutePath)
+                            ?: return@withContext photoFile
+                        PhotoUtils.saveAsJpeg(bmp, photoFile)
+                        bmp.recycle()
+                        photoFile
+                    }
+                    capturedFile = processed
+                    showPreview(processed)
+                }
             }
             override fun onError(exception: ImageCaptureException) {
                 Log.e("TextScanner", "capture failed", exception)
@@ -88,8 +100,7 @@ class TextScannerActivity : AppCompatActivity() {
     }
 
     private fun showPreview(file: File) {
-        val bmp = PhotoUtils.decodeRotated(file.absolutePath)
-        binding.imgPreview.setImageBitmap(bmp)
+        binding.imgPreview.load(file)
         binding.resultPanel.visibility = View.VISIBLE
         binding.btnCapture.visibility = View.GONE
     }

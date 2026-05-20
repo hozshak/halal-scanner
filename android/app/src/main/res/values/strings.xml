@@ -132,6 +132,7 @@
     <string name="ocr_step2_analyze">✓  Schritt 2: Zutaten analysieren</string>
     <string name="ocr_step2_retake">Anderes Foto machen</string>
     <string name="ocr_analyzing">Analysiere Zutaten…</string>
+    <string name="result_status_subtitle">Halal-Analyse</string>
 
     <string name="front_step1_capture">📷  Schritt 1: Foto machen</string>
     <string name="front_step2_review">Foto aufgenommen</string>

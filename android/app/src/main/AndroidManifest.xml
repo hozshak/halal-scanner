@@ -12,6 +12,11 @@
     <!-- ML Kit Modell wird im Hintergrund vom Play Service installiert -->
     <queries>
         <package android:name="com.google.android.gms" />
+        <!-- Google Lens / Image Search Apps damit resolveActivity unter Android 11+ klappt -->
+        <package android:name="com.google.android.googlequicksearchbox" />
+        <package android:name="com.google.ar.lens" />
+        <package android:name="com.google.android.apps.photos" />
+        <package android:name="com.instagram.android" />
     </queries>
 
     <application

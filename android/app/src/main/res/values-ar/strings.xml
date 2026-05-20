@@ -131,6 +131,7 @@
     <string name="ocr_step2_analyze">✓  الخطوة 2: تحليل المكونات</string>
     <string name="ocr_step2_retake">صورة أخرى</string>
     <string name="ocr_analyzing">جاري تحليل المكونات…</string>
+    <string name="result_status_subtitle">تحليل حلال</string>
 
     <string name="front_step1_capture">📷  الخطوة 1: التقاط الصورة</string>
     <string name="front_step2_review">تم التقاط الصورة</string>

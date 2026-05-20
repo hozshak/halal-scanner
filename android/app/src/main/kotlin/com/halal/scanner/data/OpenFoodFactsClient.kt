@@ -49,7 +49,8 @@ class OpenFoodFactsClient {
             val url = "https://$host/api/v2/product/$barcode.json" +
                 "?fields=code,product_name,product_name_de,product_name_en,brands," +
                 "image_front_url,image_url,ingredients_text,ingredients_text_de," +
-                "ingredients_text_en,labels_tags,countries_tags,nova_group,nutriscore_grade"
+                "ingredients_text_en,labels_tags,countries_tags,nova_group,nutriscore_grade," +
+                "categories_tags,manufacturing_places,manufacturing_places_tags,nutriments"
             val req = Request.Builder()
                 .url(url)
                 .header("User-Agent", "HalalScanner-Android/1.0")
@@ -78,6 +79,18 @@ class OpenFoodFactsClient {
                     else -> null
                 }
 
+                val nutri = p.optJSONObject("nutriments")
+                val nutriments = if (nutri != null) Nutriments(
+                    energyKcal     = nutri.numOrNull("energy-kcal_100g"),
+                    sugarsG        = nutri.numOrNull("sugars_100g"),
+                    fatG           = nutri.numOrNull("fat_100g"),
+                    saturatedFatG  = nutri.numOrNull("saturated-fat_100g"),
+                    proteinG       = nutri.numOrNull("proteins_100g"),
+                    saltG          = nutri.numOrNull("salt_100g"),
+                    fiberG         = nutri.numOrNull("fiber_100g"),
+                    carbohydratesG = nutri.numOrNull("carbohydrates_100g"),
+                ) else null
+
                 Result.Found(
                     Product(
                         barcode = barcode,
@@ -92,6 +105,10 @@ class OpenFoodFactsClient {
                         countries = (p.optJSONArray("countries_tags") ?: JSONArray()).toStringList(),
                         novaGroup = p.optInt("nova_group", 0).takeIf { it > 0 },
                         nutriScore = p.optString("nutriscore_grade").ifBlank { null },
+                        categories = (p.optJSONArray("categories_tags") ?: JSONArray()).toStringList(),
+                        manufacturer = p.optString("manufacturing_places").ifBlank { null }
+                            ?: (p.optJSONArray("manufacturing_places_tags") ?: JSONArray()).toStringList().firstOrNull(),
+                        nutriments = nutriments,
                     ),
                     source = label,
                 )
@@ -160,5 +177,10 @@ class OpenFoodFactsClient {
         val list = mutableListOf<String>()
         for (i in 0 until length()) list += optString(i)
         return list.filter { it.isNotBlank() }
+    }
+
+    private fun JSONObject.numOrNull(key: String): Double? {
+        if (!has(key) || isNull(key)) return null
+        return optDouble(key, Double.NaN).takeIf { !it.isNaN() }
     }
 }

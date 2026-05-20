@@ -145,4 +145,48 @@
     <string name="lang_de">Deutsch</string>
     <string name="lang_en">English</string>
     <string name="lang_ar">العربية</string>
+
+    <!-- 3 info cards above hero -->
+    <string name="info_category_label">CATEGORY</string>
+    <string name="info_country_label">COUNTRY</string>
+    <string name="info_status_label">HALAL STATUS</string>
+    <string name="info_value_unknown">—</string>
+
+    <!-- Nutrition block -->
+    <string name="nutrition_header">Nutrition Facts</string>
+    <string name="nutrition_per_100g">per 100 g</string>
+    <string name="nutrition_sugar">Sugar</string>
+    <string name="nutrition_calories">Calories</string>
+    <string name="nutrition_protein">Protein</string>
+    <string name="nutrition_fat">Fat</string>
+    <string name="nutrition_value_g">%1$s g</string>
+    <string name="nutrition_value_kcal">%1$s kcal</string>
+    <string name="nutrition_unknown">—</string>
+
+    <!-- Manufacturer -->
+    <string name="manufacturer_header">MANUFACTURED IN</string>
+    <string name="manufacturer_unknown">No manufacturer information available</string>
+
+    <!-- Pros / Cons -->
+    <string name="pros_header">Positive</string>
+    <string name="cons_header">Negative</string>
+
+    <string name="pro_no_haram">No haram ingredients detected in the list</string>
+    <string name="pro_high_protein">High protein content</string>
+    <string name="pro_low_sugar">Low sugar</string>
+    <string name="pro_low_fat">Low fat</string>
+    <string name="pro_low_salt">Low salt</string>
+    <string name="pro_high_fiber">Good source of fiber</string>
+    <string name="pro_halal_label">Halal indicator on the packaging</string>
+    <string name="pro_natural">No doubtful additives</string>
+
+    <string name="con_contains_haram">Contains haram ingredients</string>
+    <string name="con_contains_mushbooh">Contains doubtful ingredients — verify source</string>
+    <string name="con_high_sugar">High in sugar</string>
+    <string name="con_high_fat">High in fat</string>
+    <string name="con_high_saturated_fat">High in saturated fat</string>
+    <string name="con_high_salt">High in salt</string>
+    <string name="con_high_calories">High in calories</string>
+    <string name="con_ultra_processed">Ultra-processed (NOVA 4)</string>
+    <string name="con_no_ingredients">No ingredient list available</string>
 </resources>

@@ -145,4 +145,48 @@
     <string name="lang_de">Deutsch</string>
     <string name="lang_en">English</string>
     <string name="lang_ar">العربية</string>
+
+    <!-- بطاقات المعلومات الثلاث فوق صورة المنتج -->
+    <string name="info_category_label">الفئة</string>
+    <string name="info_country_label">الدولة</string>
+    <string name="info_status_label">حالة الحلال</string>
+    <string name="info_value_unknown">—</string>
+
+    <!-- القيم الغذائية -->
+    <string name="nutrition_header">القيم الغذائية</string>
+    <string name="nutrition_per_100g">لكل 100 غ</string>
+    <string name="nutrition_sugar">سكر</string>
+    <string name="nutrition_calories">سعرات</string>
+    <string name="nutrition_protein">بروتين</string>
+    <string name="nutrition_fat">دهون</string>
+    <string name="nutrition_value_g">%1$s غ</string>
+    <string name="nutrition_value_kcal">%1$s سعر</string>
+    <string name="nutrition_unknown">—</string>
+
+    <!-- جهة التصنيع -->
+    <string name="manufacturer_header">جهة التصنيع</string>
+    <string name="manufacturer_unknown">لا توجد معلومات عن المُصنِّع</string>
+
+    <!-- الإيجابيات / السلبيات -->
+    <string name="pros_header">إيجابيات</string>
+    <string name="cons_header">سلبيات</string>
+
+    <string name="pro_no_haram">لم يُرصد أي مكوّن حرام في القائمة</string>
+    <string name="pro_high_protein">محتوى عالٍ من البروتين</string>
+    <string name="pro_low_sugar">سكر قليل</string>
+    <string name="pro_low_fat">دهون قليلة</string>
+    <string name="pro_low_salt">ملح قليل</string>
+    <string name="pro_high_fiber">مصدر جيد للألياف</string>
+    <string name="pro_halal_label">شعار حلال على العبوة</string>
+    <string name="pro_natural">لا يحتوي على مواد مضافة مشبوهة</string>
+
+    <string name="con_contains_haram">يحتوي على مكوّنات حرام</string>
+    <string name="con_contains_mushbooh">يحتوي على مكوّنات مشبوهة — تأكد من المصدر</string>
+    <string name="con_high_sugar">نسبة سكر عالية</string>
+    <string name="con_high_fat">نسبة دهون عالية</string>
+    <string name="con_high_saturated_fat">دهون مشبعة عالية</string>
+    <string name="con_high_salt">نسبة ملح عالية</string>
+    <string name="con_high_calories">سعرات حرارية عالية</string>
+    <string name="con_ultra_processed">عالي المعالجة (نوفا 4)</string>
+    <string name="con_no_ingredients">قائمة المكونات غير متوفرة</string>
 </resources>

@@ -146,4 +146,48 @@
     <string name="lang_de">Deutsch</string>
     <string name="lang_en">English</string>
     <string name="lang_ar">العربية</string>
+
+    <!-- 3 Info-Kacheln über Hero -->
+    <string name="info_category_label">KATEGORIE</string>
+    <string name="info_country_label">LAND</string>
+    <string name="info_status_label">HALAL-STATUS</string>
+    <string name="info_value_unknown">—</string>
+
+    <!-- Nährwert-Block -->
+    <string name="nutrition_header">Nährwerte</string>
+    <string name="nutrition_per_100g">pro 100 g</string>
+    <string name="nutrition_sugar">Zucker</string>
+    <string name="nutrition_calories">Kalorien</string>
+    <string name="nutrition_protein">Protein</string>
+    <string name="nutrition_fat">Fett</string>
+    <string name="nutrition_value_g">%1$s g</string>
+    <string name="nutrition_value_kcal">%1$s kcal</string>
+    <string name="nutrition_unknown">—</string>
+
+    <!-- Hersteller -->
+    <string name="manufacturer_header">HERSTELLUNG</string>
+    <string name="manufacturer_unknown">Keine Herstellerangabe vorhanden</string>
+
+    <!-- Pros / Cons -->
+    <string name="pros_header">Positiv</string>
+    <string name="cons_header">Negativ</string>
+
+    <string name="pro_no_haram">Keine haram-Zutaten in der Liste erkannt</string>
+    <string name="pro_high_protein">Hoher Protein-Gehalt</string>
+    <string name="pro_low_sugar">Wenig Zucker</string>
+    <string name="pro_low_fat">Wenig Fett</string>
+    <string name="pro_low_salt">Wenig Salz</string>
+    <string name="pro_high_fiber">Hoher Ballaststoff-Anteil</string>
+    <string name="pro_halal_label">Halal-Indikator auf der Verpackung</string>
+    <string name="pro_natural">Keine zweifelhaften Zusatzstoffe</string>
+
+    <string name="con_contains_haram">Enthält haram-Zutaten</string>
+    <string name="con_contains_mushbooh">Enthält zweifelhafte Zutaten — Quelle prüfen</string>
+    <string name="con_high_sugar">Hoher Zuckergehalt</string>
+    <string name="con_high_fat">Hoher Fettgehalt</string>
+    <string name="con_high_saturated_fat">Viel gesättigte Fettsäuren</string>
+    <string name="con_high_salt">Hoher Salzgehalt</string>
+    <string name="con_high_calories">Hoher Kaloriengehalt</string>
+    <string name="con_ultra_processed">Stark verarbeitet (NOVA 4)</string>
+    <string name="con_no_ingredients">Keine Zutatenliste verfügbar</string>
 </resources>

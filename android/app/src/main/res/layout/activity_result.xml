@@ -116,7 +116,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:visibility="gone"
-            app:constraint_referenced_ids="statusCard,txtStatusLabel,txtStatusSubtitle,productCard,txtProductName,txtBrand,productImage,reasonsCard,txtReasonsHeader,txtReasons,ingredientsCard,txtIngredientsHeader,txtIngredients,btnScanAgain,btnBack" />
+            app:constraint_referenced_ids="statusCard,productCard,reasonsCard,ingredientsCard,btnScanAgain,btnBack" />
 
         <ImageView
             android:id="@+id/ocrPhotoView"
